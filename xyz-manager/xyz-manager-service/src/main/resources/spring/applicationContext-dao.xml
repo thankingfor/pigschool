@@ -29,6 +29,6 @@
 		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="xyz.pigschool.mapper,xyz.pigschool.service.mapper" />
+		<property name="basePackage" value="xyz.pigschool.mapper" />
 	</bean>
 </beans>
