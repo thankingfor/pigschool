@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.pigschool.service.mapper.XyzItemServiceMapper" >
+
+  <select id="selectByParam" resultType="xyz.pigschool.pojo.XyzItem" parameterType="string" >
+    select * from xyz_item where title like #{param} or sell_point like #{param} or location like #{param}
+  </select>
+  
+</mapper>

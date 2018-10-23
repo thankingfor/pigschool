@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.pigschool.smk.search.service.mapper.SmkSearchMapper" >
+	<select id="getItemList" resultType="xyz.pigschool.smk.pojo.SearchItem">
+		SELECT
+			a.id,
+			a.title,
+			a.sell_point,
+			a.price,
+			a.num,
+			a.image,
+			b.name cname,
+			a.location,
+			a.contact_info
+		FROM
+			xyz_item a
+		LEFT JOIN xyz_item_cat b ON a.cid = b.id
+		WHERE
+			a.state = 1
+	</select>
+	<select id="getItemById" parameterType="long" resultType="xyz.pigschool.smk.pojo.SearchItem">
+		SELECT
+			a.id,
+			a.title,
+			a.sell_point,
+			a.price,
+			a.num,
+			a.image,
+			b.name cname,
+			a.location,
+			a.contact_info
+		FROM
+			xyz_item a
+		LEFT JOIN xyz_item_cat b ON a.cid = b.id
+		WHERE
+			a.state = 1
+		AND a.id=#{itemid}
+	</select>
+</mapper>

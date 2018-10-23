@@ -1,0 +1,10 @@
+<link href="${pageContext.request.contextPath}/css/plug/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/plug/bootstrap-treeview.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/plug/toastr.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/plug/bootstrap-dialog.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/plug/wangEditor.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/plug/animate.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/plug/fileinput.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/plug/bootstrap-table.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/plug/bootstrapValidator.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/plug/bootstrap-maizi.css" rel="stylesheet">

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.pigschool.content.service.mapper.XyzContentServiceMapper" >
+
+<!-- List<XyzContent> selectByParam(String Param); -->
+  <select id="selectByParam" resultType="xyz.pigschool.pojo.XyzContent" >
+    select * from xyz_content where title like #{param} or title_desc like #{param} 
+    	or sub_title like #{param} or content like #{param}
+  </select>
+  
+  <!-- 通过cid查询所有字段  sort字段进行逆序排序Desc List<XyzContent> selectByCid(long cid);-->
+  <select id="selectByCid" resultType="xyz.pigschool.pojo.XyzContent">
+  	select * from xyz_content where category_id = #{cid} 
+  	order by sort desc
+  </select>
+  
+</mapper>

@@ -1,0 +1,4 @@
+logback.service.path=/home/logs/xyz
+logback.path=D:/logs/xyz
+logback.root.level=info
+logback.service.level=DEBUG

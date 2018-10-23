@@ -1,0 +1,33 @@
+	<!-- ik 分词器-->
+	<fieldType name="text_ik" class="solr.TextField">
+      <analyzer class="org.wltea.analyzer.lucene.IKAnalyzer"/> 
+    </fieldType>
+
+	<!-- 
+	text_ik为ik分词器
+	long string 都是定义好的引用的
+	二手市场商品的业务域 对应的数据库表为 xyz_item
+	indexed="true" 通过indexed=true可以使得一个field可以被搜索，如果你有一个字段title设置的是indexed=true，那么q=title:csdn就是在搜索标题中含有csdn的document。如果你设置indexed=false，就算你有符合的数据也无法搜索出来。 
+	stored="true" stored=true意味着你可以在结果中看到这个field，通过fl参数可以控制是否在结果中显示，如果你设置stored=false，就算你有符合的数据看不到该field。
+	所拥有的域为：SecondMarket 下的 id title price sell_point num image cname location contact_info
+	
+	keywords 多条件查询的域  用 title point  cname location contanct_info
+	
+	
+	-->
+	<field name="smk_id" type="text_ik" indexed="true" stored="true"/>
+	<field name="smk_title" type="text_ik" indexed="true" stored="true"/>
+	<field name="smk_price" type="long" indexed="true" stored="true"/>
+	<field name="smk_image" type="string" indexed="false" stored="true"/>
+	<field name="smk_num" type="long" indexed="false" stored="true"/>
+	<field name="smk_sell_point" type="text_ik" indexed="true" stored="true"/>
+	<field name="smk_cname" type="string" indexed="true" stored="true"/>
+	<field name="smk_location" type="text_ik" indexed="true" stored="true"/>
+	<field name="smk_contact_info" type="text_ik" indexed="true" stored="true"/>
+
+	<field name="smk_keywords" type="text_ik" indexed="true" stored="true" multiValued="true"/>
+	<copyField source="smk_title" dest="smk_keywords"/>
+	<copyField source="smk_sell_point" dest="smk_keywords"/>
+	<copyField source="smk_cname" dest="smk_keywords"/>
+	<copyField source="smk_location" dest="smk_keywords"/>
+	<copyField source="smk_contact_info" dest="smk_keywords"/>
