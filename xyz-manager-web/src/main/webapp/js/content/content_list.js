@@ -17,13 +17,15 @@ function selectDel(){
 	for (var i = 0; i < rows.length; i++) {
 		ids[i] = rows[i].id;
 	}
+	var cid = rows[0].categoryId;
 	$.ajax({
         type:"post",
         dataType:"json",
         url:"/content/del",
         async:false,
         traditional: true,
-        data:{ids:ids},
+        data:{ids:ids,
+        	cid:cid},
         success:function(XYZResult){  
         	toastr.success("删除成功");
         	$("#table").bootstrapTable("refresh");

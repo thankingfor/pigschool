@@ -67,14 +67,16 @@ public class ContentController {
 	
 	
 	/**
-	 * 删除分类节点
+	 * 	删除分类节点
+	 * 	缓存同步需要cid
 	 * @param id 要删除的id
  	 * @return
 	 */
 	@RequestMapping("/content/del")
 	@ResponseBody
-	public XYZResult getContentDel(@RequestParam(name="ids", defaultValue="0")Long[] ids) {
-		XYZResult result = contentService.del(ids);
+	public XYZResult getContentDel(@RequestParam(name="ids", defaultValue="0")Long[] ids,
+			@RequestParam(name="cid", defaultValue="0") long cid) {
+		XYZResult result = contentService.del(ids,cid);
 		return result;
 	}
 }

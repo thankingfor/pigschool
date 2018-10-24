@@ -11,11 +11,12 @@ public interface ContentService {
 	 */
 	XYZResult insert(XyzContent content);
 	/**
-	 * 删除内容
+	 * 	删除内容
+	 * 	做缓存,需要cid
 	 * @param id
 	 * @return
 	 */
-	XYZResult del(Long[] id);
+	XYZResult del(Long[] id,long cid);
 	/**
 	 * 根据关键字。得到内容列表
 	 * @param page
