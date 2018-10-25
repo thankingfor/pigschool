@@ -4,7 +4,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback https://raw.githubusercontent.com/enricopulatzo/logback-XSD/master/src/main/xsd/logback.xsd">
 	
-	<property resource="classpath:logback.poperties" />
+	<property name="logHome" value="D:/logs/xyz-manager-web/all"/>
+	<property name="logLevel" value="debug"/>
+	
     <!-- 输出到控制台 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender" >
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -12,32 +14,12 @@
             <pattern> %-5level %logger{50}: %msg%n</pattern>
         </encoder>
     </appender>
-    <appender name="service"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<!--日志文件输出的文件名 -->
-			<fileNamePattern>${logback.service.path}/logs/service/service-%d{yyyy-MM-dd}.%i.log
-			</fileNamePattern>
-			<!--日志文件保留天数 -->
-			<maxHistory>30</maxHistory>
-			<!-- 按时间回滚的同时，按文件大小来回滚 -->
-			<timeBasedFileNamingAndTriggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<!--日志文件最大的大小 -->
-				<maxFileSize>10MB</maxFileSize>
-			</timeBasedFileNamingAndTriggeringPolicy>
-		</rollingPolicy>
-		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} -
-				%msg%n</pattern>
-		</encoder>
-	</appender>
 	<!-- 按照每天生成日志文件 -->
 	<appender name="everyday"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!--日志文件输出的文件名 %i:起始是0，当第一个文件的大小超过10MB时，变为1，依次类推-->
-			<fileNamePattern>${logback.path}/logs/all/all-%d{yyyy-MM-dd}.%i.log
+			<fileNamePattern>${logHome}/all-%d{yyyy-MM-dd}.%i.log
 			</fileNamePattern>
 			<!--日志文件保留天数 -->
 			<maxHistory>30</maxHistory>
@@ -53,7 +35,7 @@
 		</encoder>
 	</appender>
 
-    <root level="${logback.root.level}">
+    <root level="${logLevel}">
         <appender-ref ref="console" />
 		<appender-ref ref="everyday" />
     </root>
@@ -64,8 +46,25 @@
 	<logger name="java.sql.PreparedStatement" level="DEBUG"/>
 	
 	 <!--
+	 	<property resource="classpath:logback.poperties" />
 		<logger name="xyz" level="${logback.service.level=DEBUG}">
 			<appender-ref ref="service" />
 		</logger>
+		  <appender name="service"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logback.service.path}/logs/service/service-%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} -
+				%msg%n</pattern>
+		</encoder>
+	</appender>
  	-->
 </configuration>
