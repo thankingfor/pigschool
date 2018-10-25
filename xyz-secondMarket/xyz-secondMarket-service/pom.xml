@@ -75,14 +75,10 @@
 			<groupId>com.github.sgroschupf</groupId>
 			<artifactId>zkclient</artifactId>
 		</dependency>
+		<!-- activemq -->
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-all</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.pigschool</groupId>
-			<artifactId>xyz-common-utils</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
   </dependencies>
 	<build>

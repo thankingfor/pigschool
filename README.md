@@ -23,4 +23,4 @@ xyz-manager-web 后台页面的网站 8081
 xyz-secondMarket-web 二手市场主页 8083
 xyz-sso-web 单点登录系统的web项目 8085
 xyz-smk-search-web 二手市场搜索页 8087
-
+xyz-smk-item-web 二手市场商品详情 8089
