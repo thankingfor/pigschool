@@ -6,4 +6,9 @@
     select * from xyz_item where title like #{param} or sell_point like #{param} or location like #{param}
   </select>
   
+  <!-- XyzItemCat selectById(long cid); -->
+  <select id="selectById" resultType="xyz.pigschool.pojo.XyzItemCat" >
+    select * from xyz_item_cat where id = #{cid}
+  </select>
+  
 </mapper>

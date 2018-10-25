@@ -121,7 +121,14 @@ public class SmkSearchServiceImpl implements SmkSearchService{
 			SearchItem item = new SearchItem();
 			item.setId((String) solrDocument.get("id"));
 			item.setCname((String) solrDocument.get("smk_cname"));
-			item.setImage((String) solrDocument.get("smk_image"));
+			//只取第一张图片
+			String image = (String) solrDocument.get("smk_image");
+			if (image != null && !"".equals(image)) {
+				String[] images = image.split(",");
+				item.setImage(images[0]);
+			}else {
+				item.setImage("");
+			}
 			item.setPrice((long) solrDocument.get("smk_price"));
 			item.setNum((long)solrDocument.get("smk_num"));
 			item.setSellPoint((String) solrDocument.get("smk_sell_point"));

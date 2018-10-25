@@ -22,8 +22,10 @@ import com.github.pagehelper.PageInfo;
 import xyz.pigschool.common.utils.IDUtils;
 import xyz.pigschool.common.utils.XYZResult;
 import xyz.pigschool.pojo.XyzItem;
+import xyz.pigschool.pojo.XyzItemCat;
 import xyz.pigschool.secondMarket.service.ItemService;
 import xyz.pigschool.secondMarket.service.mapper.XyzItemServiceMapper;
+import xyz.pigschool.smk.pojo.ItemDec;
 
 @Service
 public class ItemServiceImpl implements ItemService{
@@ -107,6 +109,27 @@ public class ItemServiceImpl implements ItemService{
 		PageInfo<XyzItem> pageInfo = new PageInfo<XyzItem> (list);
 		logger.debug("我来到了业务层的getItemlist方法，我的参数rows="+pageInfo.getList()+"total"+pageInfo.getTotal());
 		return XYZResult.ok(pageInfo);
+	}
+
+	/**
+	 * 通过商品id查询商品信息
+	 * 返回XyzItem 的子类 itemDec
+	 * 尽量不要联合查询
+	 * @param itemId 商品id
+	 * @author lyf
+	 */
+	@Override
+	public XYZResult getItemById(long itemId) {
+		XyzItem item = itemMapper.selectByPrimaryKey(itemId);
+		if(item!=null) {
+			ItemDec itemDec = new ItemDec(item);
+			if(itemDec!=null) {
+				XyzItemCat itemCat = itemServiceMapper.selectById(itemDec.getCid());
+				itemDec.setCname(itemCat.getName());
+			}
+			return XYZResult.ok(itemDec);
+		}
+		return XYZResult.build(201, "空");
 	}
 
 }
