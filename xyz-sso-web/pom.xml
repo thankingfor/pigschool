@@ -13,7 +13,7 @@
   <dependencies>
 		<dependency>
 			<groupId>com.pigschool</groupId>
-			<artifactId>xyz-manager-interface</artifactId>
+			<artifactId>xyz-sso-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
