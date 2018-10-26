@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.pigschool.mapper.XyzManagerTotalMapper" >
+  <resultMap id="BaseResultMap" type="xyz.pigschool.pojo.XyzManagerTotal" >
+    <id column="recordDateId" property="recorddateid" jdbcType="VARCHAR" />
+    <result column="user_login" property="userLogin" jdbcType="INTEGER" />
+    <result column="user_register" property="userRegister" jdbcType="INTEGER" />
+    <result column="user_visit" property="userVisit" jdbcType="INTEGER" />
+    <result column="manager_push_content" property="managerPushContent" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    recordDateId, user_login, user_register, user_visit, manager_push_content, created
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xyz.pigschool.pojo.XyzManagerTotalExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xyz_manager_total
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from xyz_manager_total
+    where recordDateId = #{recorddateid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from xyz_manager_total
+    where recordDateId = #{recorddateid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="xyz.pigschool.pojo.XyzManagerTotalExample" >
+    delete from xyz_manager_total
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="xyz.pigschool.pojo.XyzManagerTotal" >
+    insert into xyz_manager_total (recordDateId, user_login, user_register, 
+      user_visit, manager_push_content, created
+      )
+    values (#{recorddateid,jdbcType=VARCHAR}, #{userLogin,jdbcType=INTEGER}, #{userRegister,jdbcType=INTEGER}, 
+      #{userVisit,jdbcType=INTEGER}, #{managerPushContent,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="xyz.pigschool.pojo.XyzManagerTotal" >
+    insert into xyz_manager_total
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recorddateid != null" >
+        recordDateId,
+      </if>
+      <if test="userLogin != null" >
+        user_login,
+      </if>
+      <if test="userRegister != null" >
+        user_register,
+      </if>
+      <if test="userVisit != null" >
+        user_visit,
+      </if>
+      <if test="managerPushContent != null" >
+        manager_push_content,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recorddateid != null" >
+        #{recorddateid,jdbcType=VARCHAR},
+      </if>
+      <if test="userLogin != null" >
+        #{userLogin,jdbcType=INTEGER},
+      </if>
+      <if test="userRegister != null" >
+        #{userRegister,jdbcType=INTEGER},
+      </if>
+      <if test="userVisit != null" >
+        #{userVisit,jdbcType=INTEGER},
+      </if>
+      <if test="managerPushContent != null" >
+        #{managerPushContent,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="xyz.pigschool.pojo.XyzManagerTotalExample" resultType="java.lang.Integer" >
+    select count(*) from xyz_manager_total
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update xyz_manager_total
+    <set >
+      <if test="record.recorddateid != null" >
+        recordDateId = #{record.recorddateid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userLogin != null" >
+        user_login = #{record.userLogin,jdbcType=INTEGER},
+      </if>
+      <if test="record.userRegister != null" >
+        user_register = #{record.userRegister,jdbcType=INTEGER},
+      </if>
+      <if test="record.userVisit != null" >
+        user_visit = #{record.userVisit,jdbcType=INTEGER},
+      </if>
+      <if test="record.managerPushContent != null" >
+        manager_push_content = #{record.managerPushContent,jdbcType=INTEGER},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update xyz_manager_total
+    set recordDateId = #{record.recorddateid,jdbcType=VARCHAR},
+      user_login = #{record.userLogin,jdbcType=INTEGER},
+      user_register = #{record.userRegister,jdbcType=INTEGER},
+      user_visit = #{record.userVisit,jdbcType=INTEGER},
+      manager_push_content = #{record.managerPushContent,jdbcType=INTEGER},
+      created = #{record.created,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.pigschool.pojo.XyzManagerTotal" >
+    update xyz_manager_total
+    <set >
+      <if test="userLogin != null" >
+        user_login = #{userLogin,jdbcType=INTEGER},
+      </if>
+      <if test="userRegister != null" >
+        user_register = #{userRegister,jdbcType=INTEGER},
+      </if>
+      <if test="userVisit != null" >
+        user_visit = #{userVisit,jdbcType=INTEGER},
+      </if>
+      <if test="managerPushContent != null" >
+        manager_push_content = #{managerPushContent,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where recordDateId = #{recorddateid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.pigschool.pojo.XyzManagerTotal" >
+    update xyz_manager_total
+    set user_login = #{userLogin,jdbcType=INTEGER},
+      user_register = #{userRegister,jdbcType=INTEGER},
+      user_visit = #{userVisit,jdbcType=INTEGER},
+      manager_push_content = #{managerPushContent,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP}
+    where recordDateId = #{recorddateid,jdbcType=VARCHAR}
+  </update>
+</mapper>
