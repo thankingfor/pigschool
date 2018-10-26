@@ -21,7 +21,6 @@ import freemarker.template.Template;
  * @author lyf
  */
 
-@Controller
 public class HtmlGenController {
 	
 	@Autowired

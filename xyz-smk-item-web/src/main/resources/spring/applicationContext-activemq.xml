@@ -28,13 +28,13 @@
 	<bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
 		<constructor-arg value="itemAddTopic" />
 	</bean>
-	<!-- 配置添加商品到solr的服务 监听商品添加消息，同步索引库-->
-	<bean id="itemHtmlListener" class="xyz.pigschool.smk.item.listener.ItemHtmlListener"/>
+	<!--生成商品的html-->
+	<!-- <bean id="itemHtmlListener" class="xyz.pigschool.smk.item.listener.ItemHtmlListener"/>
 	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
 		<property name="connectionFactory" ref="connectionFactory" />
 		<property name="destination" ref="topicDestination" />
 		<property name="messageListener" ref="itemHtmlListener" />
-	</bean>
+	</bean> -->
 	
 	
 	
