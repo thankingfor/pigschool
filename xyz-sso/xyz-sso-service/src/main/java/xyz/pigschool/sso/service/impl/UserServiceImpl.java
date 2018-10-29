@@ -2,12 +2,16 @@ package xyz.pigschool.sso.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import xyz.pigschool.common.jedis.JedisClient;
+import xyz.pigschool.common.utils.JsonUtils;
 import xyz.pigschool.common.utils.XYZResult;
 import xyz.pigschool.mapper.XyzUserMapper;
 import xyz.pigschool.pojo.XyzUser;
@@ -26,6 +30,12 @@ public class UserServiceImpl implements UserService {
 		
 	@Autowired
 	private XyzUserMapper userMapper;
+	@Autowired
+	private JedisClient jedisClient;
+	@Value("${USER_SESSION}")
+	private String USER_SESSION;
+	@Value("${SESSION_EXPIRE}")
+	private Integer SESSION_EXPIRE;
 	
 	@Override
 	public XYZResult checkData(String data, int type) {
@@ -95,6 +105,35 @@ public class UserServiceImpl implements UserService {
 		//插入数据
 		userMapper.insert(user);
 		return XYZResult.ok();
+	}
+
+	@Override
+	public XYZResult login(String phone, String password) {
+		//判断用户名和密码是否正确
+		XyzUserExample example=new XyzUserExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andPhoneEqualTo(phone);
+		List<XyzUser> list = userMapper.selectByExample(example);
+		if(list.size()==0||list==null) {
+			//返回登录失败
+			return XYZResult.build(400,"用户名或密码不正确");
+		}
+		XyzUser user = list.get(0);
+		//密码要进行md5加密后校验
+		if(!DigestUtils.md5DigestAsHex(password.getBytes()).equals(user.getPassword())){
+			//返回登录失败
+			return XYZResult.build(400,"用户名或密码不正确");
+		}
+		//生成token,使用uuid
+		String token=UUID.randomUUID().toString();
+		//清空密码
+		user.setPassword(null);
+		//那用户信息保存到redis,key就是token,value就是用户信息
+		jedisClient.set(USER_SESSION+":"+token, JsonUtils.objectToJson(user));
+		//设置key的过期时间
+		jedisClient.expire(USER_SESSION+":"+token, SESSION_EXPIRE);
+		//返回登录成功,其中要把token返回
+		return XYZResult.ok(token);
 	}
 
 }
