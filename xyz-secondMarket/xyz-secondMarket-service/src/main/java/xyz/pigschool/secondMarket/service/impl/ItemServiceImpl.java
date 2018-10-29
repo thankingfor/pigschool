@@ -9,9 +9,11 @@ import javax.jms.Message;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
@@ -19,11 +21,15 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
+import xyz.pigschool.common.jedis.JedisClient;
 import xyz.pigschool.common.utils.IDUtils;
+import xyz.pigschool.common.utils.JsonUtils;
 import xyz.pigschool.common.utils.XYZResult;
 import xyz.pigschool.pojo.XyzItem;
+import xyz.pigschool.pojo.XyzItemCat;
 import xyz.pigschool.secondMarket.service.ItemService;
 import xyz.pigschool.secondMarket.service.mapper.XyzItemServiceMapper;
+import xyz.pigschool.smk.pojo.ItemDec;
 
 @Service
 public class ItemServiceImpl implements ItemService{
@@ -47,6 +53,15 @@ public class ItemServiceImpl implements ItemService{
 	
 	@Resource
 	private Destination itemDelDestination;
+	
+	@Autowired
+	private JedisClient jedisClient;
+	
+	@Value("${SMK_ITEM_INFO}")
+	private String SMK_ITEM_INFO;
+	
+	@Value("${SMK_ITEM_TIME}")
+	private Integer SMK_ITEM_TIME;
 	
 	/**
 	 * 商品添加
@@ -107,6 +122,47 @@ public class ItemServiceImpl implements ItemService{
 		PageInfo<XyzItem> pageInfo = new PageInfo<XyzItem> (list);
 		logger.debug("我来到了业务层的getItemlist方法，我的参数rows="+pageInfo.getList()+"total"+pageInfo.getTotal());
 		return XYZResult.ok(pageInfo);
+	}
+
+	/**
+	 * 通过商品id查询商品信息
+	 * 返回XyzItem 的子类 itemDec
+	 * 尽量不要联合查询
+	 * 添加缓存的操作
+	 * @param itemId 商品id
+	 * @author lyf
+	 */
+	@Override
+	public XYZResult getItemById(long itemId) {
+		//查询缓存
+		try {
+			String json = jedisClient.get(SMK_ITEM_INFO + ":" + itemId);
+			if(StringUtils.isNotBlank(json)) {
+				ItemDec itemDec = JsonUtils.jsonToPojo(json, ItemDec.class);
+				XYZResult.ok(itemDec);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//查询数据库
+		XyzItem item = itemMapper.selectByPrimaryKey(itemId);
+		if(item!=null) {
+			ItemDec itemDec = new ItemDec(item);
+			if(itemDec!=null) {
+				XyzItemCat itemCat = itemServiceMapper.selectById(itemDec.getCid());
+				itemDec.setCname(itemCat.getName());
+				//添加缓存
+				try {
+					jedisClient.set(SMK_ITEM_INFO + ":" + itemId, JsonUtils.objectToJson(itemDec));
+					//设置过期时间
+					jedisClient.expire(SMK_ITEM_INFO + ":" + itemId, SMK_ITEM_TIME);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			return XYZResult.ok(itemDec);
+		}
+		return XYZResult.build(201, "空");
 	}
 
 }

@@ -32,6 +32,7 @@ function search_keys(formName){
 	总记录数：${recourdCount }<br/>
 	<c:forEach  items="${itemList }" var="sItem">
 		<div style="float: left;height: 300px;width: 300px;margin-left: 50px;">
+			<a href="http://localhost:8089/smkitem/${sItem.id }.html" target="view_window">查看详情</a>
 			商品id：${sItem.id }
 			商品名称：${sItem.title }
 			类别：${sItem.cname }
