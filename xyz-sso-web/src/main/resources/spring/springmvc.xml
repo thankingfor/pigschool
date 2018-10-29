@@ -13,7 +13,7 @@
 	<context:property-placeholder location="classpath:conf/*.properties" />
 	
 	<context:component-scan base-package="xyz.pigschool.sso.controller" />
-	<mvc:annotation-driven />
+<mvc:annotation-driven />
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
@@ -27,8 +27,8 @@
 	<!-- 引用dubbo服务 -->
 	<dubbo:application name="xyz-sso-web"/>
 	<dubbo:registry protocol="zookeeper" address="47.95.196.58:2181"/>	
-	<!-- <dubbo:reference interface="xyz.pigschool.service.ItemCatService" id="itemCatService" />
-	<dubbo:reference interface="xyz.pigschool.service.ItemService" id="itemService" />
+	 <dubbo:reference interface="xyz.pigschool.sso.service.UserService" id="userService" />
+	<!--<dubbo:reference interface="xyz.pigschool.service.ItemService" id="itemService" />
 	<dubbo:reference interface="xyz.pigschool.content.service.ContentCatService" id="contentCatService" />
 	<dubbo:reference interface="xyz.pigschool.content.service.ContentService" id="contentService" /> -->
 </beans>

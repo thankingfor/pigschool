@@ -10,5 +10,9 @@
 </head>
 <body>
 	<br/>想做登录注册的web工程
+	<form action="${pageContext.request.contextPath}/user/register" method="post">
+	<input type="text" name="username">
+	<input type="submit" value="haha">
+	</form>
 </body>
 </html>
