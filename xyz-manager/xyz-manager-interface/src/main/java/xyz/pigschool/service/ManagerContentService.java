@@ -33,4 +33,11 @@ public interface ManagerContentService {
 	 * @return
 	 */
 	XYZResult outTop(int id);
+	
+	/**
+	 * 通过id查询
+	 * @param id
+	 * @return
+	 */
+	XYZResult getById(int id);
 }

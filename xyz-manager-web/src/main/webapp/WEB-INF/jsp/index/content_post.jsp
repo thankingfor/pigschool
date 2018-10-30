@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
-<title>bootstrap项目实战</title>
+<title>添加内容</title>
 <%@ include file="../common/common_css.jsp"%>
 <%@ include file="../common/common_js.jsp"%>
 <script src="${pageContext.request.contextPath}/js/index/content_post.js"></script>

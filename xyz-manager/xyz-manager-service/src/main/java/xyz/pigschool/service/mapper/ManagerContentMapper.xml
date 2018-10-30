@@ -19,5 +19,10 @@
 		ORDER BY c.is_top DESC,c.created DESC
   	</select>
   	
-  	
+  	<!-- public ManagerContentVO getById(int id); -->
+  	<select id="getById" resultType="xyz.pigschool.manager.pojo.ManagerContentVO">
+  		SELECT c.id ,c.title,c.content,u.`name` author,c.created pulish,c.is_top
+		from xyz_manager_content c,xyz_manager_user u 
+		where u.id = c.uid and c.id = #{id}
+  	</select>
 </mapper>

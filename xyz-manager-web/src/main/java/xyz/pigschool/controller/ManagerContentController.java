@@ -51,6 +51,16 @@ public class ManagerContentController {
 		return "index/content";
 	}
 	
+	@RequestMapping("/showContent")
+	public String getContentById(@RequestParam(name="id")int id,
+			HttpServletRequest request,Model model) {
+		logger.debug("id="+id);
+		XYZResult result= managerContentService.getById(id);
+		ManagerContentVO contentVO = (ManagerContentVO)result.getData();
+		model.addAttribute("content", contentVO);
+		return "index/contentShow";
+	}
+	
 	@RequestMapping("/manager/content/upTop")
 	@ResponseBody
 	public XYZResult upTop(int id) {

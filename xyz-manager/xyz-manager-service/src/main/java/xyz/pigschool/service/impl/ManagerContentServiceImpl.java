@@ -100,4 +100,17 @@ public class ManagerContentServiceImpl implements ManagerContentService{
 		return count;
 	}
 
+	/**
+	 * 通过id查询
+	 * @param id
+	 * @return
+	 */
+	public XYZResult getById(int id) {
+		ManagerContentVO contentVO = managerContentMapper.getById(id);
+		if(contentVO != null) {
+			return XYZResult.ok(contentVO);
+		}
+		return null;
+	}
+
 }
