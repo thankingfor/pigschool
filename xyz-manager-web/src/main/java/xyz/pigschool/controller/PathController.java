@@ -3,6 +3,7 @@ package xyz.pigschool.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class PathController {
@@ -23,6 +24,10 @@ public class PathController {
 	public String showCommon(@PathVariable(value="path") String path) {
 		return "common/"+path;
 	}*/
+	@RequestMapping("/login")
+	public String login() {
+		return "user/login";
+	}
 	@RequestMapping("/content_add")
 	public String content_add() {
 		return "content/content_add";

@@ -148,5 +148,7 @@ function yanzheng(){
 }
 </script>
 </form>
+
+<%@ include file="common/common_footer.jsp"%>
 </body>
 </html>

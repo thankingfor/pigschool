@@ -1,5 +1,7 @@
 <!-- 此标签解决乱码问题 -->
 <%@page pageEncoding="UTF-8"%>
+<!-- c标签 -->
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--导航-->
 <nav class="navbar navbar-default">
     <div class="container">
@@ -21,6 +23,7 @@
                 <li><a href="content"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;内容管理</a></li>
                 <li><a href="tag"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;标签管理</a></li>
             </ul>
+            <span class="glyphicon glyphicon-user">当前用户：${sessionScope.user.nick }</span>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -36,7 +39,7 @@
                         <li><a href="test"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;测试页面</a></li>
                     </ul>
                 </li>
-                <li><a href="#bbs"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a></li>
+                <li><a href="#bbs" data-toggle="modal" data-target="#loginoutModal"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
@@ -58,3 +61,25 @@
     </div>
 </nav>
 <!--导航-->
+
+<!--模态框-->
+<!--登出确认框-->
+<div class="modal fade" id="loginoutModal" tabindex="-1" role="dialog" aria-labelledby="loginoutModalModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">退出登录</h4>
+            </div>
+            <div class="modal-body">
+            	是否退出登录？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="loginout()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--登出确认框-->
+<!--模态框-->

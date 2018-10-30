@@ -108,4 +108,17 @@
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>", 
         });
     }
+    
+    function loginout(){
+    	$.ajax({
+	        type:"post",
+	        dataType:"json",
+	        url:"/loginout",
+	        success:function(result){  
+	        	window.location.href = "login";
+	        },error:function(){
+	        	toastr.success("登出失败");
+	        }
+	    })
+    }
 </script>

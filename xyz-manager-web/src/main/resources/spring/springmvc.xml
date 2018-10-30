@@ -24,6 +24,22 @@
 	<mvc:resources location="/js/" mapping="/js/**"/>
 	<mvc:resources location="/fonts/" mapping="/fonts/**"/>
 	<mvc:resources location="/images/" mapping="/images/**"/>
+	<!-- 全局异常处理器 -->
+	<bean class="xyz.pigschool.exception.GlobalExectionResolver"/>
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 拦截请求 -->
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/css/**"/>
+			<mvc:exclude-mapping path="/js/**"/>
+			<mvc:exclude-mapping path="/images/**"/>
+			<!-- 登录注册的操作 -->
+			<mvc:exclude-mapping path="/login/**"/>
+			<mvc:exclude-mapping path="/login/**"/>
+			<bean class="xyz.pigschool.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	<!-- 配置多媒体解析器 -->
 	<!-- 定义文件上传解析器 -->
 	<bean id="multipartResolver"
@@ -41,4 +57,5 @@
 	<dubbo:reference interface="xyz.pigschool.content.service.ContentCatService" id="contentCatService" />
 	<dubbo:reference interface="xyz.pigschool.content.service.ContentService" id="contentService" />
 	<dubbo:reference interface="xyz.pigschool.smk.search.service.SmkSearchService" id="smkSearchService" />
+	<dubbo:reference interface="xyz.pigschool.service.ManagerUserService" id="managerUserService" />
 </beans>

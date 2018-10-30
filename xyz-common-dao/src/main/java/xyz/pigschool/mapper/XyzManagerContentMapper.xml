@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="xyz.pigschool.mapper.XyzManagerUserMapper" >
-  <resultMap id="BaseResultMap" type="xyz.pigschool.pojo.XyzManagerUser" >
+<mapper namespace="xyz.pigschool.mapper.XyzManagerContentMapper" >
+  <resultMap id="BaseResultMap" type="xyz.pigschool.manager.pojo.XyzManagerContent" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="nick" property="nick" jdbcType="VARCHAR" />
-    <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="is_top" property="isTop" jdbcType="INTEGER" />
     <result column="created" property="created" jdbcType="TIMESTAMP" />
     <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="xyz.pigschool.manager.pojo.XyzManagerContent" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,15 +70,20 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, nick, phone, email, created, updated
+    id, title, is_top, created, updated
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xyz.pigschool.pojo.XyzManagerUserExample" >
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="xyz.pigschool.manager.pojo.XyzManagerContentExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from xyz_manager_user
+    ,
+    <include refid="Blob_Column_List" />
+    from xyz_manager_content
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,47 +91,57 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xyz.pigschool.manager.pojo.XyzManagerContentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from xyz_manager_content
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from xyz_manager_user
+    ,
+    <include refid="Blob_Column_List" />
+    from xyz_manager_content
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from xyz_manager_user
+    delete from xyz_manager_content
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="xyz.pigschool.pojo.XyzManagerUserExample" >
-    delete from xyz_manager_user
+  <delete id="deleteByExample" parameterType="xyz.pigschool.manager.pojo.XyzManagerContentExample" >
+    delete from xyz_manager_content
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="xyz.pigschool.pojo.XyzManagerUser" >
-    insert into xyz_manager_user (id, name, nick, 
-      phone, email, created, 
-      updated)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{nick,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
-      #{updated,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="xyz.pigschool.manager.pojo.XyzManagerContent" >
+    insert into xyz_manager_content (id, title, is_top, 
+      created, updated, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{isTop,jdbcType=INTEGER}, 
+      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="xyz.pigschool.pojo.XyzManagerUser" >
-    insert into xyz_manager_user
+  <insert id="insertSelective" parameterType="xyz.pigschool.manager.pojo.XyzManagerContent" >
+    insert into xyz_manager_content
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="name != null" >
-        name,
+      <if test="title != null" >
+        title,
       </if>
-      <if test="nick != null" >
-        nick,
-      </if>
-      <if test="phone != null" >
-        phone,
-      </if>
-      <if test="email != null" >
-        email,
+      <if test="isTop != null" >
+        is_top,
       </if>
       <if test="created != null" >
         created,
@@ -133,22 +149,19 @@
       <if test="updated != null" >
         updated,
       </if>
+      <if test="content != null" >
+        content,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
       </if>
-      <if test="nick != null" >
-        #{nick,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null" >
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null" >
-        #{email,jdbcType=VARCHAR},
+      <if test="isTop != null" >
+        #{isTop,jdbcType=INTEGER},
       </if>
       <if test="created != null" >
         #{created,jdbcType=TIMESTAMP},
@@ -156,31 +169,28 @@
       <if test="updated != null" >
         #{updated,jdbcType=TIMESTAMP},
       </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="xyz.pigschool.pojo.XyzManagerUserExample" resultType="java.lang.Integer" >
-    select count(*) from xyz_manager_user
+  <select id="countByExample" parameterType="xyz.pigschool.manager.pojo.XyzManagerContentExample" resultType="java.lang.Integer" >
+    select count(*) from xyz_manager_content
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update xyz_manager_user
+    update xyz_manager_content
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.nick != null" >
-        nick = #{record.nick,jdbcType=VARCHAR},
-      </if>
-      <if test="record.phone != null" >
-        phone = #{record.phone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.email != null" >
-        email = #{record.email,jdbcType=VARCHAR},
+      <if test="record.isTop != null" >
+        is_top = #{record.isTop,jdbcType=INTEGER},
       </if>
       <if test="record.created != null" >
         created = #{record.created,jdbcType=TIMESTAMP},
@@ -188,38 +198,45 @@
       <if test="record.updated != null" >
         updated = #{record.updated,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
-    update xyz_manager_user
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update xyz_manager_content
     set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
-      nick = #{record.nick,jdbcType=VARCHAR},
-      phone = #{record.phone,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      is_top = #{record.isTop,jdbcType=INTEGER},
+      created = #{record.created,jdbcType=TIMESTAMP},
+      updated = #{record.updated,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update xyz_manager_content
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      is_top = #{record.isTop,jdbcType=INTEGER},
       created = #{record.created,jdbcType=TIMESTAMP},
       updated = #{record.updated,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.pigschool.pojo.XyzManagerUser" >
-    update xyz_manager_user
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.pigschool.manager.pojo.XyzManagerContent" >
+    update xyz_manager_content
     <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="nick != null" >
-        nick = #{nick,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null" >
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null" >
-        email = #{email,jdbcType=VARCHAR},
+      <if test="isTop != null" >
+        is_top = #{isTop,jdbcType=INTEGER},
       </if>
       <if test="created != null" >
         created = #{created,jdbcType=TIMESTAMP},
@@ -227,15 +244,25 @@
       <if test="updated != null" >
         updated = #{updated,jdbcType=TIMESTAMP},
       </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.pigschool.pojo.XyzManagerUser" >
-    update xyz_manager_user
-    set name = #{name,jdbcType=VARCHAR},
-      nick = #{nick,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="xyz.pigschool.manager.pojo.XyzManagerContent" >
+    update xyz_manager_content
+    set title = #{title,jdbcType=VARCHAR},
+      is_top = #{isTop,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.pigschool.manager.pojo.XyzManagerContent" >
+    update xyz_manager_content
+    set title = #{title,jdbcType=VARCHAR},
+      is_top = #{isTop,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP},
       updated = #{updated,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

@@ -291,18 +291,7 @@
         </div>
     </div>
 </div>
-<!--footer-->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>
-                    Copyright&nbsp;©&nbsp;2012-2015&nbsp;&nbsp;www.maiziedu.com&nbsp;&nbsp;蜀ICP备13014270号-4
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
-<!--footer-->
+
+<%@ include file="../common/common_footer.jsp"%>
 </body>
 </html>

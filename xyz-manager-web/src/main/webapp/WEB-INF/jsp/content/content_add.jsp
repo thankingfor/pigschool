@@ -137,5 +137,7 @@
 </div>
 <!-- 选择分类 -->
 <!-- 模态框 -->
+
+<%@ include file="../common/common_footer.jsp"%>
 </body>
 </html>

@@ -77,10 +77,10 @@
                     <input type="hidden" id="addFormDealway" name="dealway" value="0">
                     <div id="editor"></div>
                     <input type="hidden" id="addFormSellPoint" name="sellPoint">
-					<div class="page-footer" style="text-align:center;margin-top: 50px;margin-bottom: 50px;">
-						<button type="button" class="btn btn-success" onclick="addItem()" style="height: 40px;width: 140px;">保存</button>
-		            </div>
                 </form>
+            </div>
+            <div class="page-footer" style="text-align:center;margin-top: 50px;margin-bottom: 50px;">
+				<button type="button" class="btn btn-success" onclick="addItem()" style="height: 40px;width: 140px;">保存</button>
             </div>
      	</div>
      	<div class="col-md-1"></div>
@@ -132,5 +132,6 @@
 </div>
 <!-- 选择分类 -->
 <!-- 模态框 -->
+<%@ include file="../common/common_footer.jsp"%>
 </body>
 </html>
