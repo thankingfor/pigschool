@@ -9,6 +9,7 @@
 <title>bootstrap项目实战</title>
 <%@ include file="../common/common_css.jsp"%>
 <%@ include file="../common/common_js.jsp"%>
+<script src="${pageContext.request.contextPath}/js/index/content_post.js"></script>
 </head>
 <body>
 <!-- 导航栏 -->
@@ -34,20 +35,22 @@
                     <a href="content_post">添加内容</a>
                 </li>
             </ul>
-            <form action="#" class="mar_t15">
+            <form id="addForm" class="mar_t15">
                 <div class="form-group">
                     <label for="title">标题</label>
-                    <input type="text" id="title" class="form-control" placeholder="请输入文章标题">
+                    <input type="text" id="title" name="title" class="form-control" placeholder="请输入文章标题">
                 </div>
                 <div class="form-group">
                     <label for="content">文章内容</label>
-                    <textarea id="content" class="form-control" rows="15" cols="10" placeholder="请输入文章正文部分"></textarea>
+                    <div id="editor"></div>
+                    <input type="hidden" id="content" name="content">
+                    <!-- <textarea id="content" class="form-control" rows="15" cols="10" placeholder="请输入文章正文部分"></textarea> -->
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox">全局置顶
+                        <input type="checkbox" id="is_top" name="is_top">全局置顶
                     </label>
-                    <button type="submit" class="btn btn-default pull-right">发布文章</button>
+                    <button onclick="addContent()" class="btn btn-default pull-right">发布文章</button>
                 </div>
             </form>
 

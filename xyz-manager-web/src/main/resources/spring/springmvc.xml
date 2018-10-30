@@ -24,6 +24,7 @@
 	<mvc:resources location="/js/" mapping="/js/**"/>
 	<mvc:resources location="/fonts/" mapping="/fonts/**"/>
 	<mvc:resources location="/images/" mapping="/images/**"/>
+	<mvc:resources location="/favorite.ico" mapping="/favorite.ico"/>
 	<!-- 全局异常处理器 -->
 	<bean class="xyz.pigschool.exception.GlobalExectionResolver"/>
 	<!-- 配置拦截器 -->
@@ -58,4 +59,5 @@
 	<dubbo:reference interface="xyz.pigschool.content.service.ContentService" id="contentService" />
 	<dubbo:reference interface="xyz.pigschool.smk.search.service.SmkSearchService" id="smkSearchService" />
 	<dubbo:reference interface="xyz.pigschool.service.ManagerUserService" id="managerUserService" />
+	<dubbo:reference interface="xyz.pigschool.service.ManagerContentService" id="managerContentService" />
 </beans>

@@ -3,6 +3,7 @@
 <mapper namespace="xyz.pigschool.mapper.XyzManagerContentMapper" >
   <resultMap id="BaseResultMap" type="xyz.pigschool.manager.pojo.XyzManagerContent" >
     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="is_top" property="isTop" jdbcType="INTEGER" />
     <result column="created" property="created" jdbcType="TIMESTAMP" />
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, is_top, created, updated
+    id, uid, title, is_top, created, updated
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -124,18 +125,21 @@
     </if>
   </delete>
   <insert id="insert" parameterType="xyz.pigschool.manager.pojo.XyzManagerContent" >
-    insert into xyz_manager_content (id, title, is_top, 
-      created, updated, content
-      )
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{isTop,jdbcType=INTEGER}, 
-      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
-      )
+    insert into xyz_manager_content (id, uid, title, 
+      is_top, created, updated, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{isTop,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="xyz.pigschool.manager.pojo.XyzManagerContent" >
     insert into xyz_manager_content
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
+      </if>
+      <if test="uid != null" >
+        uid,
       </if>
       <if test="title != null" >
         title,
@@ -156,6 +160,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
       </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
@@ -186,6 +193,9 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
       <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
       </if>
@@ -209,6 +219,7 @@
   <update id="updateByExampleWithBLOBs" parameterType="map" >
     update xyz_manager_content
     set id = #{record.id,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
       is_top = #{record.isTop,jdbcType=INTEGER},
       created = #{record.created,jdbcType=TIMESTAMP},
@@ -221,6 +232,7 @@
   <update id="updateByExample" parameterType="map" >
     update xyz_manager_content
     set id = #{record.id,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
       is_top = #{record.isTop,jdbcType=INTEGER},
       created = #{record.created,jdbcType=TIMESTAMP},
@@ -232,6 +244,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="xyz.pigschool.manager.pojo.XyzManagerContent" >
     update xyz_manager_content
     <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
@@ -252,7 +267,8 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="xyz.pigschool.manager.pojo.XyzManagerContent" >
     update xyz_manager_content
-    set title = #{title,jdbcType=VARCHAR},
+    set uid = #{uid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
       is_top = #{isTop,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP},
       updated = #{updated,jdbcType=TIMESTAMP},
@@ -261,7 +277,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="xyz.pigschool.manager.pojo.XyzManagerContent" >
     update xyz_manager_content
-    set title = #{title,jdbcType=VARCHAR},
+    set uid = #{uid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
       is_top = #{isTop,jdbcType=INTEGER},
       created = #{created,jdbcType=TIMESTAMP},
       updated = #{updated,jdbcType=TIMESTAMP}

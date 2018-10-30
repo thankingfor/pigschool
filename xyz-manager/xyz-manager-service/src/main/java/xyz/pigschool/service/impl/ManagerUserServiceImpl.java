@@ -22,7 +22,6 @@ public class ManagerUserServiceImpl implements ManagerUserService{
 	@Autowired
 	private XyzManagerUserMapper userMapper;
 	
-	@Override
 	public XYZResult login(String username, String password) {
 		logger.debug("username="+username+"password="+password);
 		XyzManagerUserExample example = new XyzManagerUserExample();

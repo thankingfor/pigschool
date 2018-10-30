@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.pigschool.service.mapper.ManagerContentMapper" >
+	<!-- int getIstop(); -->
+	<select id="getIstop" resultType="int">
+		select max(is_top) from xyz_manager_content
+	</select>
+  
+  	<!-- public int updateTopById(int id,int max); -->
+  	<update id="updateTopById">
+  		UPDATE  xyz_manager_content SET is_top = #{param2} WHERE id = #{param1}
+  	</update>
+  	
+  	<!-- public List<ManagerContentVO> selectByParam(String string); -->
+  	<select id="selectByParam" resultType="xyz.pigschool.manager.pojo.ManagerContentVO">
+  		SELECT c.id ,c.title,c.content,u.`name` author,c.created pulish
+		from xyz_manager_content c,xyz_manager_user u 
+		where u.id = c.uid and ( c.title like #{param} OR c.content LIKE #{param} OR u.name LIKE #{param})
+		ORDER BY c.is_top DESC,c.created DESC
+  	</select>
+  	
+  	
+</mapper>
