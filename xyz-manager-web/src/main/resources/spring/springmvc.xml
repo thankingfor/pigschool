@@ -37,7 +37,7 @@
 			<mvc:exclude-mapping path="/images/**"/>
 			<!-- 登录注册的操作 -->
 			<mvc:exclude-mapping path="/login/**"/>
-			<mvc:exclude-mapping path="/login/**"/>
+			<!-- <mvc:exclude-mapping path="/login/**"/> -->
 			<bean class="xyz.pigschool.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
@@ -60,4 +60,5 @@
 	<dubbo:reference interface="xyz.pigschool.smk.search.service.SmkSearchService" id="smkSearchService" />
 	<dubbo:reference interface="xyz.pigschool.service.ManagerUserService" id="managerUserService" />
 	<dubbo:reference interface="xyz.pigschool.service.ManagerContentService" id="managerContentService" />
+	<dubbo:reference interface="xyz.pigschool.service.ManagerMessageService" id="managerMessageService" />
 </beans>

@@ -12,6 +12,10 @@ function addContent() {
 		alert("标题不能为空");
 		return ;
 	}
+	if($('#title').val().length > 20){
+		alert("请让标题小于20字!!!");
+		return ;
+	}
 	//获取 <div id="editor"></div> 
 	//给<input type="hidden" id="content" name="content">赋值
 	$('#content').val(editor.txt.html());

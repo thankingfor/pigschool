@@ -1,5 +1,7 @@
 package xyz.pigschool.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -15,6 +17,7 @@ import com.github.pagehelper.PageInfo;
 import xyz.pigschool.common.utils.XYZResult;
 import xyz.pigschool.manager.pojo.ManagerContentVO;
 import xyz.pigschool.service.ManagerContentService;
+import xyz.pigschool.service.ManagerMessageService;
 
 @Controller
 public class PathController {
@@ -24,11 +27,20 @@ public class PathController {
 	@Autowired
 	private ManagerContentService managerContentService;
 	
+	@Autowired
+	private ManagerMessageService managerMessageService;
+	
 	@Value("${MANAGER_INDEX_CONTENT_PAGE}")
 	private Integer MANAGER_INDEX_CONTENT_PAGE;
 	
 	@Value("${MANAGER_INDEX_CONTENT_ROWS}")
 	private Integer MANAGER_INDEX_CONTENT_ROWS;
+	
+	@Value("${MANAGER_INDEX_MESSAGE_PAGE}")
+	private Integer MANAGER_INDEX_MESSAGE_PAGE;
+	
+	@Value("${MANAGER_INDEX_MESSAGE_ROWS}")
+	private Integer MANAGER_INDEX_MESSAGE_ROWS;
 	
 	@RequestMapping("/login")
 	public String login() {
@@ -87,6 +99,9 @@ public class PathController {
 		XYZResult result= managerContentService.getList(MANAGER_INDEX_CONTENT_PAGE, MANAGER_INDEX_CONTENT_ROWS, "");
 		PageInfo<ManagerContentVO> pageInfo = (PageInfo<ManagerContentVO>) result.getData();
 		model.addAttribute("ContentInfo", pageInfo);
+		XYZResult result2= managerMessageService.getList(MANAGER_INDEX_MESSAGE_PAGE, MANAGER_INDEX_MESSAGE_ROWS, "");
+		PageInfo<Map<String, Object>> pageInfo2 = (PageInfo<Map<String, Object>>) result2.getData();
+		model.addAttribute("MessageInfo", pageInfo2);
 		return "index";
 	}
 	/*@RequestMapping("/{path}")

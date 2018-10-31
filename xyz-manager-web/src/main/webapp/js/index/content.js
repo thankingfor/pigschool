@@ -39,13 +39,13 @@ function turnTo(page) {
  * 置顶
  * @returns
  */
-function upTop(id) {
+function upTop() {
 	$.ajax({
         type:"post",
         dataType:"json",
         url:"/manager/content/upTop",
         async:false,//异步  true 同步
-        data:{id:id},
+        data:{text:text},
         success:function(result){  
         	window.location.href = "content";
         },error:function(){

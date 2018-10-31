@@ -13,6 +13,7 @@
 <%@ include file="common/common_js.jsp"%>
 <!-- 不记得了 -->
 <script src="${pageContext.request.contextPath}/js/plug/script.js"></script>
+<script src="${pageContext.request.contextPath}/js/index/index.js"></script>
 </head>
 <body>
 <!-- 导航栏 -->
@@ -119,67 +120,50 @@
                 <div class="panel-heading">团队留言板</div>
                 <div class="panel-body">
                     <div class="col-md-7">
-                        <div class="media well">
-                            <div class="media-left">
-                                <a href="#">
-                                    <img class="media-object wh64" src="images/a.png" alt="卓大哥">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">卓大哥</h4>
-                                技术大哥，今晚请把网站程序升级一下哈，现在的系统有漏洞，安全起见！
-                            </div>
-                        </div>
-                        <div class="media well">
-                            <div class="media-body text-right">
-                                <h4 class="media-heading">技术大哥</h4>
-                                收到，今晚凌晨2点准时升级！
-                            </div>
-                            <div class="media-right">
-                                <a href="#">
-                                    <img class="media-object wh64" src="images/b.png" alt="技术大哥">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="media well">
-                            <div class="media-body text-right">
-                                <h4 class="media-heading">技术大哥</h4>
-                                你先在站点发布一下通知哈！
-                            </div>
-                            <div class="media-right">
-                                <a href="#">
-                                    <img class="media-object wh64" src="images/b.png" alt="技术大哥">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="media well">
-                            <div class="media-left">
-                                <a href="#">
-                                    <img class="media-object wh64" src="images/a.png" alt="卓大哥">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">卓大哥</h4>
-                                好嘞。
-                            </div>
-                        </div>
+                    <c:forEach items="${MessageInfo.list }" var="mes">
+                    	<c:if test="${mes.uid ==sessionScope.user.id }">
+                    		<div class="media well">
+	                            <div class="media-body text-right">
+	                                <h4 class="media-heading">${mes.nick }</h4>
+	                                ${mes.message }
+	                            </div>
+	                            <div class="media-right">
+	                                <a href="#">
+	                                    <img class="media-object wh64" src="images/b.png" alt="技术大哥">
+	                                </a>
+	                            </div>
+                        	</div>
+                    	</c:if>
+                    	<c:if test="${mes.uid !=sessionScope.user.id }">
+	                    	<div class="media well">
+	                            <div class="media-left">
+	                                <a href="#">
+	                                    <img class="media-object wh64" src="images/a.png" alt="卓大哥">
+	                                </a>
+	                            </div>
+	                            <div class="media-body">
+	                                <h4 class="media-heading">${mes.nick }</h4>
+	                                ${mes.message }
+	                            </div>
+	                        </div>
+                        </c:if>
+                    </c:forEach>
                     </div>
                     <div class="col-md-5">
-                        <form action="#">
-                            <div class="form-group">
-                                <label for="text1">输入留言内容</label>
-                                <textarea class="form-control" id="text1" rows="5" cols="10" placeholder="请输入留言内容"></textarea>
-                                <button type="submit" class="btn btn-default mar_t15">留言</button>
-                            </div>
-                        </form>
+                        <div class="form-group">
+                            <label for="messageText">输入留言内容</label>
+                            <textarea class="form-control" id="messageText" rows="5" cols="10" placeholder="请输入留言内容"></textarea>
+                            <button onclick="addMessage()" class="btn btn-default mar_t15">留言</button>
+                            <a  href="${pageContext.request.contextPath}/message" class="btn btn-default mar_t16">查看所有</a>
+                        </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">团队联系手册</div>
                             <div class="panel-body">
                                 <ul class="list-group">
-                                    <li class="list-group-item">站长(李小龙)：<span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;13134848615</li>
+                                    <li class="list-group-item">给站(李小龙)：<span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;13134848615</li>
                                     <li class="list-group-item">技术(大牛哥)：<span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;13456127694</li>
                                     <li class="list-group-item">推广(张二哥)：<span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;13457815482</li>
-                                    <li class="list-group-item">客服(王女士)：<span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;13134567782&nbsp;&nbsp;<span class="glyphicon glyphicon-phone-alt"></span>&nbsp;&nbsp;028-888888</li>
+                                    <li class="list-group-item">客服(王女士)：<span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;13134567782<!-- &nbsp;&nbsp;<span class="glyphicon glyphicon-phone-alt"></span>&nbsp;&nbsp;028-888888 --></li>
                                 </ul>
                             </div>
                         </div>
