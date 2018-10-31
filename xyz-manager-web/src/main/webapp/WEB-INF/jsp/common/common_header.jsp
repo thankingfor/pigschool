@@ -2,6 +2,7 @@
 <%@page pageEncoding="UTF-8"%>
 <!-- c标签 -->
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!--导航-->
 <nav class="navbar navbar-default">
     <div class="container">

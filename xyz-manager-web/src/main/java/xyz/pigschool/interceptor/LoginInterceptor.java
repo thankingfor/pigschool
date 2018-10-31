@@ -19,10 +19,10 @@ public class LoginInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.debug("我来到了方法中");
+		logger.debug("我来到了登录拦截");
 		XyzManagerUser user = (XyzManagerUser) request.getSession().getAttribute("user");
 		if(user==null) {
-			logger.debug("我甚至准备转发了");
+			logger.debug("没有登录,进行拦截");
 			PrintWriter out = response.getWriter();
 			out.print("<script>window.top.location.href ='login'</script>");
 			return false;

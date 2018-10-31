@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
 <head>
@@ -72,24 +74,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">网站热帖</div>
                     <ul class="list-group">
-                        <li class="list-group-item">
-                            <a href="index"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;泛Mooc职业教育， 效果和就业为王<small class="pull-right">2015/08/08</small></a>
+                    <c:forEach items="${ContentInfo.list }" var="con">
+                    	<li class="list-group-item">
+                            <a href="${pageContext.request.contextPath}/showContent?id=${con.id }"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;${con.title }
+                            <small class="pull-right"><fmt:formatDate value="${con.pulish }" pattern="yyyy/MM/dd"/></small></a>
                         </li>
-                        <li class="list-group-item">
-                            <a href="index"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;泛Mooc职业教育， 效果和就业为王<small class="pull-right">2015/08/08</small></a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="index"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;泛Mooc职业教育， 效果和就业为王<small class="pull-right">2015/08/08</small></a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="index"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;泛Mooc职业教育， 效果和就业为王<small class="pull-right">2015/08/08</small></a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="index"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;泛Mooc职业教育， 效果和就业为王<small class="pull-right">2015/08/08</small></a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="index"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;泛Mooc职业教育， 效果和就业为王<small class="pull-right">2015/08/08</small></a>
-                        </li>
+                    </c:forEach>
                     </ul>
             </div>
         </div>

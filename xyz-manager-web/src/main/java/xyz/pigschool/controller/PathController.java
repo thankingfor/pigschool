@@ -1,12 +1,34 @@
 package xyz.pigschool.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.github.pagehelper.PageInfo;
+
+import xyz.pigschool.common.utils.XYZResult;
+import xyz.pigschool.manager.pojo.ManagerContentVO;
+import xyz.pigschool.service.ManagerContentService;
 
 @Controller
 public class PathController {
+	
+	private Logger logger = LoggerFactory.getLogger(PathController.class);
+	
+	@Autowired
+	private ManagerContentService managerContentService;
+	
+	@Value("${MANAGER_INDEX_CONTENT_PAGE}")
+	private Integer MANAGER_INDEX_CONTENT_PAGE;
+	
+	@Value("${MANAGER_INDEX_CONTENT_ROWS}")
+	private Integer MANAGER_INDEX_CONTENT_ROWS;
 	
 	@RequestMapping("/login")
 	public String login() {
@@ -61,13 +83,16 @@ public class PathController {
 		return "test";
 	}
 	@RequestMapping("/index")
-	public String index() {
+	public String index(HttpServletRequest request,Model model) {
+		XYZResult result= managerContentService.getList(MANAGER_INDEX_CONTENT_PAGE, MANAGER_INDEX_CONTENT_ROWS, "");
+		PageInfo<ManagerContentVO> pageInfo = (PageInfo<ManagerContentVO>) result.getData();
+		model.addAttribute("ContentInfo", pageInfo);
 		return "index";
 	}
-	@RequestMapping("/{path}")
+	/*@RequestMapping("/{path}")
 	public String show(@PathVariable String path) {
 		return path;
-	}
+	}*/
 	@RequestMapping("/")
 	public String show() {
 		return "index";
