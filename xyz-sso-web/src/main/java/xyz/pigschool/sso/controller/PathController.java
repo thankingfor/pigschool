@@ -12,7 +12,6 @@ public class PathController {
 	}
 	@RequestMapping("/")
 	public String show() {
-		System.out.println("我进来了去index页面的Controller");
 		return "index";
 	}
 }

@@ -3,8 +3,10 @@ package xyz.pigschool.sso.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +41,6 @@ public class UserController {
 		@ResponseBody
 		public XYZResult register(XyzUser user) {
 			XYZResult result = userService.register(user);
-			System.out.println(result.toString());
 			return result;
 		}
 		
@@ -47,10 +48,29 @@ public class UserController {
 		@ResponseBody
 		public XYZResult login(String phone,String password,HttpServletResponse response,HttpServletRequest request) {
 			XYZResult result = userService.login(phone, password);
-			//把token写入cookie
+			//如果登录成功把token写入cookie
+			if(result.getStatus()==200) {
 			CookieUtils.setCookie(request, response, TOKEN_KEY, result.getData().toString());
+			}
 			return result;
-			
 		}
-		
+		@RequestMapping(value="/user/token/{token}",method=RequestMethod.GET)
+		@ResponseBody
+		public Object getUserByToken(@PathVariable String token,String callback) {
+			XYZResult result = userService.getUserByToken(token);
+			//判断是否为jsonp请求
+			if(StringUtils.isBlank(callback)) {
+				MappingJacksonValue mappingJacksonValue=new MappingJacksonValue(result);
+				//设置回调方法
+				mappingJacksonValue.setJsonpFunction(callback);
+				return mappingJacksonValue;
+			}
+			return result;
+		}
+		@RequestMapping(value="/user/logout/{token}",method=RequestMethod.GET)
+		@ResponseBody
+		public XYZResult logout(@PathVariable String token) {
+			XYZResult result = userService.logout(token);
+			return result;
+		}
 }

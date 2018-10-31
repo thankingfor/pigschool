@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
@@ -11,14 +13,18 @@
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 
 	<!-- 配置包扫描器 -->
-	<context:component-scan base-package="xyz.pigschool.sso.service"/>
-	
+	<context:component-scan
+		base-package="xyz.pigschool.sso.service" />
+
 	<!-- 使用dubbo发布服务 -->
 	<!-- 提供方应用信息，用于计算依赖关系 -->
 	<dubbo:application name="xyz-sso" />
-	<dubbo:registry protocol="zookeeper" address="47.95.196.58:2181" />
+	<dubbo:registry protocol="zookeeper"
+		address="47.95.196.58:2181" />
 	<!-- 用dubbo协议在20880端口暴露服务 -->
 	<dubbo:protocol name="dubbo" port="20882" />
 	<!-- 声明需要暴露的服务接口 -->
-		<dubbo:service interface="xyz.pigschool.sso.service.UserService" ref="userServiceImpl" timeout="600000"/>
+	<dubbo:service
+		interface="xyz.pigschool.sso.service.UserService"
+		ref="userServiceImpl" timeout="600000" />
 </beans>

@@ -8,11 +8,12 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 	
-	<context:annotation-config/>
-	<!-- redis单机版 -->
+	<!-- 连接redis单机版 -->
+	<bean id="jedisClientPool" class="xyz.pigschool.common.jedis.JedisClientPool">
+		<property name="jedisPool" ref="jedisPool"></property>
+	</bean>
 	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
-		<constructor-arg name="host" value="47.95.196.58"/>	
+		<constructor-arg name="host" value="101.132.124.2"/>
 		<constructor-arg name="port" value="6379"/>
 	</bean>
-	<bean id="jedisClientPool" class="xyz.pigschool.common.jedis.JedisClientPool"/>
 </beans>

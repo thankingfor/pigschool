@@ -1,5 +1,6 @@
 package xyz.pigschool.sso.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -20,120 +21,180 @@ import xyz.pigschool.pojo.XyzUserExample.Criteria;
 import xyz.pigschool.sso.service.UserService;
 
 /**
- * ÓÃ»§´¦ÀíService
+ * ç”¨æˆ·å¤„ç†Service
  * @author zk
- * @da2018Äê10ÔÂ25ÈÕ
+ * @da2018å¹´10æœˆ25æ—¥
  */
 
 @Service
 public class UserServiceImpl implements UserService {
-		
-	@Autowired
-	private XyzUserMapper userMapper;
-	@Autowired
-	private JedisClient jedisClient;
-	@Value("${USER_SESSION}")
-	private String USER_SESSION;
-	@Value("${SESSION_EXPIRE}")
-	private Integer SESSION_EXPIRE;
-	
-	@Override
-	public XYZResult checkData(String data, int type) {
-		
-		XyzUserExample example=new XyzUserExample();
-		Criteria criteria = example.createCriteria();
-		//ÉèÖÃ²éÑ¯Ìõ¼ş
-		//1.ÅĞ¶ÏÓÃ»§ÃûÊÇ·ñ¿ÉÓÃ
-		if(type==1) {
-			criteria.andUsernameEqualTo(data);
-			//2.ÅĞ¶ÏÊÖ»úºÅÊÇ·ñ¿ÉÓÃ
-		} else if(type==2){
-			criteria.andPhoneEqualTo(data);
-			//3.ÅĞ¶ÏemailÊÇ·ñ¿ÉÓÃ
-		}else if(type==3){
-			criteria.andEmailEqualTo(data);
-		}else {
-			XYZResult.build(400, "·Ç·¨Êı¾İ!");
-		}
-		List<XyzUser> list = userMapper.selectByExample(example);
-		if(list !=null && list.size()>0) {
-			//²éµ½Êı¾İ,·µ»Øfalse
-			return XYZResult.ok(false);
-		}
-		return XYZResult.ok(true);
-	}
+
+    @Autowired
+    private XyzUserMapper userMapper;
+    @Autowired
+    private JedisClient jedisClient;
+    @Value("${USER_SESSION}")
+    private String USER_SESSION;
+    @Value("${SESSION_EXPIRE}")
+    private Integer SESSION_EXPIRE;
+    @Value("${XYZ_MANAGER_TOTAL}")
+    private String XYZ_MANAGER_TOTAL;
+    @Value("${REGIST_COUNT_INCR}")
+    private Long REGIST_COUNT_INCR;
+    @Value("${LOGIN}")
+    private String LOGIN;
+    @Value("${REGISTER}")
+    private String REGISTER;
+
+    @Override
+    public XYZResult checkData(String data, int type) {
+
+        XyzUserExample example=new XyzUserExample();
+        Criteria criteria = example.createCriteria();
+        //è®¾ç½®æŸ¥è¯¢æ¡ä»¶
+        //1.åˆ¤æ–­ç”¨æˆ·åæ˜¯å¦å¯ç”¨
+        if(type==1) {
+            criteria.andUsernameEqualTo(data);
+            //2.åˆ¤æ–­æ‰‹æœºå·æ˜¯å¦å¯ç”¨
+        } else if(type==2){
+            criteria.andPhoneEqualTo(data);
+            //3.åˆ¤æ–­emailæ˜¯å¦å¯ç”¨
+        }else if(type==3){
+            criteria.andEmailEqualTo(data);
+        }else {
+            XYZResult.build(400, "éæ³•æ•°æ®!");
+        }
+        List<XyzUser> list = userMapper.selectByExample(example);
+        if(list !=null && list.size()>0) {
+            //æŸ¥åˆ°æ•°æ®,è¿”å›false
+            return XYZResult.ok(false);
+        }
+        return XYZResult.ok(true);
+    }
+
+    @Override
+    public XYZResult register(XyzUser user) {
+        //åˆ¤æ–­ç”¨æˆ·åæ˜¯å¦ä¸ºç©º
+        if(StringUtils.isBlank(user.getUsername())) {
+            return XYZResult.build(400, "ç”¨æˆ·åä¸èƒ½ä¸ºç©º");
+        }
+        //åˆ¤æ–­ç”¨æˆ·åæ˜¯å¦é‡å¤
+        XYZResult xyzResultN = checkData(user.getUsername(), 1);
+        if(!(boolean)xyzResultN.getData()) {
+            return XYZResult.build(400,"ç”¨æˆ·åå·²å­˜åœ¨");
+        }
+        //åˆ¤æ–­å¯†ç æ˜¯å¦ä¸ºç©º
+        if(StringUtils.isBlank(user.getPassword())) {
+            return XYZResult.build(400, "å¯†ç ä¸èƒ½ä¸ºç©º");
+        }
+        //åˆ¤æ–­æ‰‹æœºå·æ˜¯å¦ä¸ºç©º
+        if(StringUtils.isBlank(user.getPhone())) {
+            return XYZResult.build(400, "æ‰‹æœºå·ä¸èƒ½ä¸ºç©º");
+        }
+        //åˆ¤æ–­æ‰‹æœºå·æ˜¯å¦é‡å¤
+        XYZResult xyzResultP = checkData(user.getPhone(), 2);
+        if(!(boolean) xyzResultP.getData()) {
+            return XYZResult.build(400, "æ‰‹æœºå·å·²å­˜åœ¨");
+        }
+        //åˆ¤æ–­emailæ˜¯å¦ä¸ºç©º
+        if(StringUtils.isBlank(user.getEmail())) {
+            return XYZResult.build(400, "emailä¸èƒ½ä¸ºç©º");
+        }
+        //åˆ¤æ–­emailæ˜¯å¦é‡å¤
+        XYZResult xyzResultE = checkData(user.getEmail(), 3);
+        if(!(boolean) xyzResultE.getData()) {
+            return XYZResult.build(400, "emailå·²å­˜åœ¨");
+        }
+        //è·å–å½“å‰çš„æ—¥æœŸ
+        SimpleDateFormat dateFormat  = new SimpleDateFormat("yyyy-MM-dd");
+        String date =dateFormat.format(new Date());
+        //æŸ¥è¯¢å½“æ—¥æ˜¯å¦æœ‰æ³¨å†Œ
+        String hget = jedisClient.hget(XYZ_MANAGER_TOTAL, REGISTER+":"+date );
+        if(StringUtils.isBlank(hget)) {
+        	//å½“æ—¥é¦–æ¬¡æ³¨å†Œredis
+        	jedisClient.hset(XYZ_MANAGER_TOTAL, REGISTER+":"+date , 1+"");
+        }else {//ä¸æ˜¯é¦–æ¬¡æ¬¡æ•°åŠ ä¸€
+        	jedisClient.hincrby(XYZ_MANAGER_TOTAL,REGISTER+":"+date ,REGIST_COUNT_INCR);
+        }
+        //è¡¥å…¨pojo
+        user.setCreated(new Date());
+        user.setUpdated(new Date());
+        //å¯†ç è¿›è¡Œmd5åŠ å¯†
+        String md5Pass = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
+        user.setPassword(md5Pass);
+        //æ’å…¥æ•°æ®
+        userMapper.insert(user);
+        return XYZResult.ok();
+    }
+
+    @Override
+    public XYZResult login(String phone, String password) {
+        //åˆ¤æ–­æ‰‹æœºå·æ˜¯å¦ä¸ºç©º
+        if(StringUtils.isBlank(phone)) {
+            return XYZResult.build(400, "æ‰‹æœºå·ä¸èƒ½ä¸ºç©º");
+        }
+        //åˆ¤æ–­å¯†ç æ˜¯å¦ä¸ºç©º
+        if(StringUtils.isBlank(password)) {
+            return XYZResult.build(400, "å¯†ç ä¸èƒ½ä¸ºç©º");
+        }
+        //åˆ¤æ–­ç”¨æˆ·åå’Œå¯†ç æ˜¯å¦æ­£ç¡®
+        XyzUserExample example=new XyzUserExample();
+        Criteria criteria = example.createCriteria();
+        criteria.andPhoneEqualTo(phone);
+
+        List<XyzUser> list = userMapper.selectByExample(example);
+        if(list.size()==0||list==null) {
+            //è¿”å›ç™»å½•å¤±è´¥
+            return XYZResult.build(400,"ç”¨æˆ·åæˆ–å¯†ç ä¸æ­£ç¡®");
+        }
+        XyzUser user = list.get(0);
+        //å¯†ç è¦è¿›è¡Œmd5åŠ å¯†åæ ¡éªŒ
+        if(!DigestUtils.md5DigestAsHex(password.getBytes()).equals(user.getPassword())){
+            //è¿”å›ç™»å½•å¤±è´¥
+            return XYZResult.build(400,"ç”¨æˆ·åæˆ–å¯†ç ä¸æ­£ç¡®");
+        }
+        //è·å–å½“å‰çš„æ—¥æœŸ
+        SimpleDateFormat dateFormat  = new SimpleDateFormat("yyyy-MM-dd");
+        String date =dateFormat.format(new Date());
+        //æŸ¥è¯¢å½“æ—¥æ˜¯å¦æœ‰ç™»å½•
+        String hget = jedisClient.hget(XYZ_MANAGER_TOTAL, LOGIN+":"+date );
+        if(StringUtils.isBlank(hget)) {
+        	//å½“æ—¥é¦–æ¬¡ç™»å½•å­˜å…¥redis
+        	jedisClient.hset(XYZ_MANAGER_TOTAL, LOGIN+":"+date , 1+"");
+        }else {//ä¸æ˜¯é¦–æ¬¡ç™»å½•æ¬¡æ•°åŠ ä¸€
+        	jedisClient.hincrby(XYZ_MANAGER_TOTAL,LOGIN+":"+date ,REGIST_COUNT_INCR);
+        }
+        //ç”Ÿæˆtoken,ä½¿ç”¨uuid
+        String token=UUID.randomUUID().toString();
+        //æ¸…ç©ºå¯†ç 
+        user.setPassword(null);
+        String json = JsonUtils.objectToJson(user);
+        //é‚£ç”¨æˆ·ä¿¡æ¯ä¿å­˜åˆ°redis,keyå°±æ˜¯token,valueå°±æ˜¯ç”¨æˆ·ä¿¡æ¯
+        jedisClient.set(USER_SESSION+":"+token, JsonUtils.objectToJson(user));
+        //è®¾ç½®keyçš„è¿‡æœŸæ—¶é—´
+        jedisClient.expire(USER_SESSION+":"+token, SESSION_EXPIRE);
+        //è¿”å›ç™»å½•æˆåŠŸ,å…¶ä¸­è¦æŠŠtokenè¿”å›
+        return XYZResult.ok(token);
+    }
 
 	@Override
-	public XYZResult register(XyzUser user) {
-       //ÅĞ¶ÏÓÃ»§ÃûÊÇ·ñÎª¿Õ
-		if(StringUtils.isBlank(user.getUsername())) {
-    	   return XYZResult.build(400, "ÓÃ»§Ãû²»ÄÜÎª¿Õ");
-       }
-		//ÅĞ¶ÏÓÃ»§ÃûÊÇ·ñÖØ¸´
-		XYZResult xyzResultN = checkData(user.getUsername(), 1);
-		if(!(boolean)xyzResultN.getData()) {
-			return XYZResult.build(400,"ÓÃ»§ÃûÒÑ´æÔÚ");
+	public XYZResult getUserByToken(String token) {
+		String json = jedisClient.get(USER_SESSION+":"+token);
+		if(StringUtils.isBlank(json)) {
+			return XYZResult.build(400, "ç”¨æˆ·ç™»å½•å·²ç»è¿‡æœŸ");
 		}
-		//ÅĞ¶ÏÃÜÂëÊÇ·ñÎª¿Õ
-		if(StringUtils.isBlank(user.getPassword())) {
-			return XYZResult.build(400, "ÃÜÂë²»ÄÜÎª¿Õ");
-		}
-		//ÅĞ¶ÏÊÖ»úºÅÊÇ·ñÎª¿Õ
-		if(StringUtils.isBlank(user.getPhone())) {
-			return XYZResult.build(400, "ÊÖ»úºÅ²»ÄÜÎª¿Õ");
-		}
-		//ÅĞ¶ÏÊÖ»úºÅÊÇ·ñÖØ¸´
-		XYZResult xyzResultP = checkData(user.getPhone(), 2);
-		if(!(boolean) xyzResultP.getData()) {
-			return XYZResult.build(400, "ÊÖ»úºÅÒÑ´æÔÚ");
-		}
-		//ÅĞ¶ÏemailÊÇ·ñÎª¿Õ
-		if(StringUtils.isBlank(user.getEmail())) {
-			return XYZResult.build(400, "email²»ÄÜÎª¿Õ");
-		}
-		//ÅĞ¶ÏemailÊÇ·ñÖØ¸´
-		XYZResult xyzResultE = checkData(user.getEmail(), 3);
-		if(!(boolean) xyzResultE.getData()) {
-			return XYZResult.build(400, "emailÒÑ´æÔÚ");
-		}
-		//²¹È«pojo
-		user.setCreated(new Date());
-		user.setUpdated(new Date());
-		//ÃÜÂë½øĞĞmd5¼ÓÃÜ
-		String md5Pass = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
-		user.setPassword(md5Pass);
-		//²åÈëÊı¾İ
-		userMapper.insert(user);
-		return XYZResult.ok();
-	}
-
-	@Override
-	public XYZResult login(String phone, String password) {
-		//ÅĞ¶ÏÓÃ»§ÃûºÍÃÜÂëÊÇ·ñÕıÈ·
-		XyzUserExample example=new XyzUserExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andPhoneEqualTo(phone);
-		List<XyzUser> list = userMapper.selectByExample(example);
-		if(list.size()==0||list==null) {
-			//·µ»ØµÇÂ¼Ê§°Ü
-			return XYZResult.build(400,"ÓÃ»§Ãû»òÃÜÂë²»ÕıÈ·");
-		}
-		XyzUser user = list.get(0);
-		//ÃÜÂëÒª½øĞĞmd5¼ÓÃÜºóĞ£Ñé
-		if(!DigestUtils.md5DigestAsHex(password.getBytes()).equals(user.getPassword())){
-			//·µ»ØµÇÂ¼Ê§°Ü
-			return XYZResult.build(400,"ÓÃ»§Ãû»òÃÜÂë²»ÕıÈ·");
-		}
-		//Éú³Étoken,Ê¹ÓÃuuid
-		String token=UUID.randomUUID().toString();
-		//Çå¿ÕÃÜÂë
-		user.setPassword(null);
-		//ÄÇÓÃ»§ĞÅÏ¢±£´æµ½redis,key¾ÍÊÇtoken,value¾ÍÊÇÓÃ»§ĞÅÏ¢
-		jedisClient.set(USER_SESSION+":"+token, JsonUtils.objectToJson(user));
-		//ÉèÖÃkeyµÄ¹ıÆÚÊ±¼ä
+		//é‡ç½®sessionçš„è¿‡æœŸæ—¶é—´
 		jedisClient.expire(USER_SESSION+":"+token, SESSION_EXPIRE);
-		//·µ»ØµÇÂ¼³É¹¦,ÆäÖĞÒª°Ñtoken·µ»Ø
-		return XYZResult.ok(token);
+		//æŠŠjsonè½¬æ¢æˆUserå¯¹è±¡
+		XyzUser user = JsonUtils.jsonToPojo(json, XyzUser.class);
+		return XYZResult.ok(user);
+	}
+
+	@Override
+	public XYZResult logout(String token) {
+		// åˆ é™¤key
+		jedisClient.del(token);
+		return XYZResult.ok();
 	}
 
 }

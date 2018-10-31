@@ -13,8 +13,9 @@ console.log(result);
 </script>
 	
 	<br/>想做登录注册的web工程
-	<form action="${pageContext.request.contextPath}/user/register" method="post">
-	<input type="text" name="username">
+	<form action="${pageContext.request.contextPath}/user/login" method="post">
+	<input type="text" name="phone">
+	<input type="text" name="password">
 	<input type="submit" value="haha">
 	</form>
 </body>
