@@ -113,4 +113,12 @@ public class JedisClientPool implements JedisClient {
 		return result;
 	}
 
+	@Override
+	public Long hincrby(String key,String field,Long value) {
+		Jedis jedis = jedisPool.getResource();
+		Long result = jedis.hincrBy(key, field, value);
+		jedis.close();
+		return result;
+	}
+
 }

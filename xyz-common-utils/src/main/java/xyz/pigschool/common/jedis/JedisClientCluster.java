@@ -77,4 +77,11 @@ public class JedisClientCluster implements JedisClient {
 		return jedisCluster.del(key);
 	}
 
+	@Override
+	public Long hincrby(String key, String field, Long value) {
+		
+		return jedisCluster.hincrBy(key, field, value);
+	}
+	
+
 }
