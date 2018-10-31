@@ -6,9 +6,11 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
-<title>bootstrap项目实战</title>
+<title>校园猪</title>
 <%@ include file="common/common_css.jsp"%>
 <%@ include file="common/common_js.jsp"%>
+<!-- 不记得了 -->
+<script src="${pageContext.request.contextPath}/js/plug/script.js"></script>
 </head>
 <body>
 <!-- 导航栏 -->
@@ -200,18 +202,6 @@
 
 
 
-<!--footer-->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>
-                    Copyright&nbsp;©&nbsp;2012-2015&nbsp;&nbsp;www.maiziedu.com&nbsp;&nbsp;蜀ICP备13014270号-4
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
-<!--footer-->
+<%@ include file="common/common_footer.jsp"%>
 </body>
 </html>

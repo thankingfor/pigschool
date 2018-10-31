@@ -18,6 +18,8 @@ public class XyzManagerUser implements Serializable{
 
     private Date updated;
 
+    private String password;
+
     public Integer getId() {
         return id;
     }
@@ -72,5 +74,13 @@ public class XyzManagerUser implements Serializable{
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 }

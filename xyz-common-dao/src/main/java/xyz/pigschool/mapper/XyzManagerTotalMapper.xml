@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="xyz.pigschool.mapper.XyzManagerTotalMapper" >
-  <resultMap id="BaseResultMap" type="xyz.pigschool.pojo.XyzManagerTotal" >
+  <resultMap id="BaseResultMap" type="xyz.pigschool.manager.pojo.XyzManagerTotal" >
     <id column="recordDateId" property="recorddateid" jdbcType="VARCHAR" />
     <result column="user_login" property="userLogin" jdbcType="INTEGER" />
     <result column="user_register" property="userRegister" jdbcType="INTEGER" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List" >
     recordDateId, user_login, user_register, user_visit, manager_push_content, created
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xyz.pigschool.pojo.XyzManagerTotalExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="xyz.pigschool.manager.pojo.XyzManagerTotalExample" >
     select
     <if test="distinct" >
       distinct
@@ -94,13 +94,13 @@
     delete from xyz_manager_total
     where recordDateId = #{recorddateid,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="xyz.pigschool.pojo.XyzManagerTotalExample" >
+  <delete id="deleteByExample" parameterType="xyz.pigschool.manager.pojo.XyzManagerTotalExample" >
     delete from xyz_manager_total
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="xyz.pigschool.pojo.XyzManagerTotal" >
+  <insert id="insert" parameterType="xyz.pigschool.manager.pojo.XyzManagerTotal" >
     insert into xyz_manager_total (recordDateId, user_login, user_register, 
       user_visit, manager_push_content, created
       )
@@ -108,7 +108,7 @@
       #{userVisit,jdbcType=INTEGER}, #{managerPushContent,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="xyz.pigschool.pojo.XyzManagerTotal" >
+  <insert id="insertSelective" parameterType="xyz.pigschool.manager.pojo.XyzManagerTotal" >
     insert into xyz_manager_total
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="recorddateid != null" >
@@ -151,7 +151,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="xyz.pigschool.pojo.XyzManagerTotalExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="xyz.pigschool.manager.pojo.XyzManagerTotalExample" resultType="java.lang.Integer" >
     select count(*) from xyz_manager_total
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -195,7 +195,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="xyz.pigschool.pojo.XyzManagerTotal" >
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.pigschool.manager.pojo.XyzManagerTotal" >
     update xyz_manager_total
     <set >
       <if test="userLogin != null" >
@@ -216,7 +216,7 @@
     </set>
     where recordDateId = #{recorddateid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="xyz.pigschool.pojo.XyzManagerTotal" >
+  <update id="updateByPrimaryKey" parameterType="xyz.pigschool.manager.pojo.XyzManagerTotal" >
     update xyz_manager_total
     set user_login = #{userLogin,jdbcType=INTEGER},
       user_register = #{userRegister,jdbcType=INTEGER},

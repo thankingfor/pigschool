@@ -1,4 +1,4 @@
-package xyz.pigschool.manager.mapper;
+package xyz.pigschool.mapper;
 
 import java.util.List;
 

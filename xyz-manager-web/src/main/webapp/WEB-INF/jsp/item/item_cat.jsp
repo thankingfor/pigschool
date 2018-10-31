@@ -86,5 +86,7 @@
 </div>
 <!-- 修改分类名称 -->
 <!-- 模态框 -->
+
+<%@ include file="../common/common_footer.jsp"%>
 </body>
 </html>

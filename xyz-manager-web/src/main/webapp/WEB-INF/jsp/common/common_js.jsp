@@ -12,8 +12,6 @@
 <script src="${pageContext.request.contextPath}/js/plug/wangEditor.min.js"></script>
 <!-- 图样报表插件 -->
 <script src="${pageContext.request.contextPath}/js/plug/Chart.js"></script>
-<!-- 不记得了 -->
-<script src="${pageContext.request.contextPath}/js/plug/script.js"></script>
 <!-- 模态框 对话框插件 -->
 <script src="${pageContext.request.contextPath}/js/plug/bootstrap-dialog.min.js" ></script>
 <!-- 图片上传插件 -->
@@ -107,5 +105,18 @@
             browseClass: "btn btn-primary", //按钮样式             
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>", 
         });
+    }
+    
+    function loginout(){
+    	$.ajax({
+	        type:"post",
+	        dataType:"json",
+	        url:"/loginout",
+	        success:function(result){  
+	        	window.location.href = "login";
+	        },error:function(){
+	        	toastr.success("登出失败");
+	        }
+	    })
     }
 </script>
