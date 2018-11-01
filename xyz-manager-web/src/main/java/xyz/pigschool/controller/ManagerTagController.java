@@ -55,7 +55,7 @@ public class ManagerTagController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/tag")
 	public String getList(@RequestParam(name="page",defaultValue="1")int page,
-			@RequestParam(name="rows",defaultValue="8")int rows,
+			@RequestParam(name="rows",defaultValue="80")int rows,
 			@RequestParam(name="param",defaultValue="")String param,
 			HttpServletRequest request,Model model) {
 		logger.debug(page+","+rows+","+param);
