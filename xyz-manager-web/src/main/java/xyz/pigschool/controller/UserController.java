@@ -4,12 +4,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.github.pagehelper.PageInfo;
 
 import xyz.pigschool.common.utils.XYZResult;
 import xyz.pigschool.manager.pojo.XyzManagerUser;
@@ -22,6 +27,9 @@ public class UserController {
 	
 	@Autowired
 	private ManagerUserService userService;
+	
+	@Autowired
+	private ManagerUserService managerUserService;
 	
 	/**
 	 * 	用户登录
@@ -64,5 +72,29 @@ public class UserController {
 	public XYZResult logout(HttpSession session) throws Exception{
 		session.invalidate();
 		return XYZResult.ok();
+	}
+	
+	/**
+	 * 用户列表
+	 * @return
+	 */
+	@RequestMapping("/user_list")
+	public String user_list(@RequestParam(name="page",defaultValue="1")int page,
+			@RequestParam(name="rows",defaultValue="8")int rows,
+			@RequestParam(name="param",defaultValue="")String param,
+			HttpServletRequest request,Model model) {
+		XYZResult result3 = managerUserService.getList(page, rows, param);
+		PageInfo<XyzManagerUser> pageInfo3 = (PageInfo<XyzManagerUser>) result3.getData();
+		model.addAttribute("UserInfo", pageInfo3);
+		return "index/user_list";
+	}
+	
+	/**
+	 * 用户搜索
+	 * @return
+	 */
+	@RequestMapping("/user_search")
+	public String user_search() {
+		return "index/user_search";
 	}
 }

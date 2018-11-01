@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
-<title>bootstrap项目实战</title>
+<title>用户列表</title>
 <%@ include file="../common/common_css.jsp"%>
 <%@ include file="../common/common_js.jsp"%>
+<script src="${pageContext.request.contextPath}/js/index/user_list.js"></script>
 </head>
 <body>
 <!-- 导航栏 -->
@@ -43,255 +46,54 @@
                     <tr>
                         <th>ID</th>
                         <th>用户名</th>
+                        <th>昵称</th>
+                        <th>电话</th>
                         <th>邮箱</th>
                         <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>张三</td>
-                        <td>123456789@maiziedu.com</td>
+                <c:forEach items="${UserInfo.list }" var="user">
+                <tr>
+                        <th scope="row">${user.id }</th>
+                        <td>${user.name }</td>
+                        <td>${user.nick }</td>
+                        <td>${user.phone }</td>
+                        <td>${user.email }</td>
                         <td>
                             <div role="presentation" class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                                     操作<span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                   <li><a href="#">编辑</a></li>
-                                   <li><a href="#">删除</a></li>
-                                   <li><a href="#">锁定</a></li>
-                                   <li><a href="#">修改密码</a></li>
+                                   <li><a onclick="showDetail(${user.id })">查看详情</a></li>
+                                   <li><a onclick="truckHim(${user.id })">向他吐口水</a></li>
                                 </ul>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>李四</td>
-                        <td>121265489@maiziedu.com</td>
-                        <td>
-                            <div role="presentation" class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    操作<span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">编辑</a></li>
-                                    <li><a href="#">删除</a></li>
-                                    <li><a href="#">锁定</a></li>
-                                    <li><a href="#">修改密码</a></li>
-                                </ul>
-                            </div>
-                        </td>
+                </c:forEach>
                     </tr>
                 </tbody>
             </table>
             <nav class="pull-right">
-                <ul class="pagination">
-                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2 </a></li>
-                    <li><a href="#">3 </a></li>
-                    <li><a href="#">4 </a></li>
-                    <li><a href="#">5 </a></li>
-                    <li><a href="#">6 </a></li>
-                    <li><a href="#"><span aria-hidden="true">&raquo;</span></a></li>
-                </ul>
-            </nav>
+			    <ul class="pagination">
+			    	<%-- <li>每页的数量:${pageInfo.pageSize }</li> --%>
+			    	<%-- <li>总记录数:${pageInfo.total }</li> --%>
+			        <li><a onclick="turnToUp(${UserInfo.pageNum })" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+			        <li><a onclick="turnTo(1)">1</a></li>
+			        <li><a onclick="turnTo(${UserInfo.pageNum })" class="disabled">当前：${UserInfo.pageNum }</a></li>
+			        <li><a onclick="turnTo(${UserInfo.pages })" class="disabled">总共：${UserInfo.pages }</a></li>
+			        <li><a onclick="turnTo(${UserInfo.pages })" class="disabled">${UserInfo.pages }</a></li>
+			        <li><a onclick="turnToDown(${UserInfo.pageNum },${UserInfo.pages })"><span aria-hidden="true">&raquo;</span></a></li>
+			        
+			    </ul>
+			</nav>
         </div>
     </div>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">添加用户</h4>
-            </div>
-            <div class="modal-body">
-                <form action="#">
-                    <div class="form-group">
-                        <label for="addname">用户名</label>
-                        <input type="text" id="addname" class="form-control" placeholder="用户名">
-                    </div>
-                    <div class="form-group">
-                        <label for="addpassword">用户密码</label>
-                        <input type="text" id="addpassword" class="form-control" placeholder="请输入用户密码">
-                    </div>
-                    <div class="form-group">
-                        <label for="addpassword1">确认用户密码</label>
-                        <input type="text" id="addpassword1" class="form-control" placeholder="请确认输入用户密码">
-                    </div>
-                    <div class="form-group">
-                        <label for="addemail">请输入用户邮箱</label>
-                        <input type="email" id="addemail" class="form-control" placeholder="请输入用户邮箱">
-                    </div>
-                    <div class="form-group">
-                        <label for="addyonghuzu">所属用户组</label>
-                        <select id="addyonghuzu" class="form-control">
-                            <option>限制会员</option>
-                            <option>新手上路</option>
-                            <option>组册会员</option>
-                            <option>中级会员</option>
-                            <option>高级会员</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">提交</button>
-            </div>
-        </div>
-    </div>
-</div>
-
+<!-- 用户添加 -->
+<%@ include file="common_user_add.jsp"%>
 <%@ include file="../common/common_footer.jsp"%>
 </body>
 </html>

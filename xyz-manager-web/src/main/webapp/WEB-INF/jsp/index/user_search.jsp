@@ -6,9 +6,10 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
-<title>bootstrap项目实战</title>
+<title>用户搜索</title>
 <%@ include file="../common/common_css.jsp"%>
 <%@ include file="../common/common_js.jsp"%>
+<script src="${pageContext.request.contextPath}/js/index/user_list.js"></script>
 </head>
 <body>
 <!-- 导航栏 -->
@@ -61,60 +62,13 @@
                         <option>高级会员</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-default">提交</button>
+                <button class="btn btn-default" onclick="searchUser()">提交</button>
             </form>
         </div>
     </div>
 </div>
 
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">添加用户</h4>
-            </div>
-            <div class="modal-body">
-                <form action="#">
-                    <div class="form-group">
-                        <label for="addname">用户名</label>
-                        <input type="text" id="addname" class="form-control" placeholder="用户名">
-                    </div>
-                    <div class="form-group">
-                        <label for="addpassword">用户密码</label>
-                        <input type="text" id="addpassword" class="form-control" placeholder="请输入用户密码">
-                    </div>
-                    <div class="form-group">
-                        <label for="addpassword1">确认用户密码</label>
-                        <input type="text" id="addpassword1" class="form-control" placeholder="请确认输入用户密码">
-                    </div>
-                    <div class="form-group">
-                        <label for="addemail">请输入用户邮箱</label>
-                        <input type="email" id="addemail" class="form-control" placeholder="请输入用户邮箱">
-                    </div>
-                    <div class="form-group">
-                        <label for="addyonghuzu">所属用户组</label>
-                        <select id="addyonghuzu" class="form-control">
-                            <option>限制会员</option>
-                            <option>新手上路</option>
-                            <option>组册会员</option>
-                            <option>中级会员</option>
-                            <option>高级会员</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">提交</button>
-            </div>
-        </div>
-    </div>
-</div>
-
+<%@ include file="common_user_add.jsp"%>
 <%@ include file="../common/common_footer.jsp"%>
 </body>
 </html>

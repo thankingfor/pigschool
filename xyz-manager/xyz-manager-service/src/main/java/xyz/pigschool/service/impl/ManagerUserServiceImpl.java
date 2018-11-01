@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import xyz.pigschool.common.utils.XYZResult;
 import xyz.pigschool.manager.pojo.XyzManagerUser;
 import xyz.pigschool.manager.pojo.XyzManagerUserExample;
@@ -22,6 +25,12 @@ public class ManagerUserServiceImpl implements ManagerUserService{
 	@Autowired
 	private XyzManagerUserMapper userMapper;
 	
+	/**
+	 * 	登录
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public XYZResult login(String username, String password) {
 		logger.debug("username="+username+"password="+password);
 		XyzManagerUserExample example = new XyzManagerUserExample();
@@ -39,6 +48,24 @@ public class ManagerUserServiceImpl implements ManagerUserService{
 			return XYZResult.ok(user);
 		}
 		return XYZResult.build(400, "用户名或密码错误");
+	}
+
+	/**
+	 * 	查询消息
+	 *  	按照时间排序
+	 * @param page
+	 * @param rows
+	 * @param param
+	 * @return
+	 */
+	public XYZResult getList(int page, int rows, String param) {
+		PageHelper.startPage(page, rows);
+		XyzManagerUserExample example = new XyzManagerUserExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andNameLike("%"+param+"%");
+		List<XyzManagerUser> list = userMapper.selectByExample(example);
+		PageInfo<XyzManagerUser> pageInfo = new PageInfo<XyzManagerUser>(list);
+		return XYZResult.ok(pageInfo);
 	}
 
 }

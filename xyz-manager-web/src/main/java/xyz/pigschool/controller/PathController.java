@@ -16,8 +16,10 @@ import com.github.pagehelper.PageInfo;
 
 import xyz.pigschool.common.utils.XYZResult;
 import xyz.pigschool.manager.pojo.ManagerContentVO;
+import xyz.pigschool.manager.pojo.XyzManagerUser;
 import xyz.pigschool.service.ManagerContentService;
 import xyz.pigschool.service.ManagerMessageService;
+import xyz.pigschool.service.ManagerUserService;
 
 @Controller
 public class PathController {
@@ -30,6 +32,9 @@ public class PathController {
 	@Autowired
 	private ManagerMessageService managerMessageService;
 	
+	@Autowired
+	private ManagerUserService managerUserService;
+	
 	@Value("${MANAGER_INDEX_CONTENT_PAGE}")
 	private Integer MANAGER_INDEX_CONTENT_PAGE;
 	
@@ -41,6 +46,12 @@ public class PathController {
 	
 	@Value("${MANAGER_INDEX_MESSAGE_ROWS}")
 	private Integer MANAGER_INDEX_MESSAGE_ROWS;
+	
+	@Value("${MANAGER_INDEX_USER_PAGE}")
+	private Integer MANAGER_INDEX_USER_PAGE;
+	
+	@Value("${MANAGER_INDEX_USER_ROWS}")
+	private Integer MANAGER_INDEX_USER_ROWS;
 	
 	@RequestMapping("/login")
 	public String login() {
@@ -82,26 +93,24 @@ public class PathController {
 	public String content_post() {
 		return "index/content_post";
 	}
-	@RequestMapping("/user_list")
-	public String user_list() {
-		return "index/user_list";
-	}
-	@RequestMapping("/user_search")
-	public String user_search() {
-		return "index/user_search";
-	}
 	@RequestMapping("/test")
 	public String test() {
 		return "test";
 	}
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request,Model model) {
+		//网站热帖
 		XYZResult result= managerContentService.getList(MANAGER_INDEX_CONTENT_PAGE, MANAGER_INDEX_CONTENT_ROWS, "");
 		PageInfo<ManagerContentVO> pageInfo = (PageInfo<ManagerContentVO>) result.getData();
 		model.addAttribute("ContentInfo", pageInfo);
+		//团队留言板
 		XYZResult result2= managerMessageService.getList(MANAGER_INDEX_MESSAGE_PAGE, MANAGER_INDEX_MESSAGE_ROWS, "");
 		PageInfo<Map<String, Object>> pageInfo2 = (PageInfo<Map<String, Object>>) result2.getData();
 		model.addAttribute("MessageInfo", pageInfo2);
+		//团队联系手册
+		XYZResult result3 = managerUserService.getList(MANAGER_INDEX_USER_PAGE, MANAGER_INDEX_USER_ROWS, "");
+		PageInfo<XyzManagerUser> pageInfo3 = (PageInfo<XyzManagerUser>) result3.getData();
+		model.addAttribute("UserInfo", pageInfo3);
 		return "index";
 	}
 	/*@RequestMapping("/{path}")

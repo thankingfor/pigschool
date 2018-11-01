@@ -160,10 +160,9 @@
                             <div class="panel-heading">团队联系手册</div>
                             <div class="panel-body">
                                 <ul class="list-group">
-                                    <li class="list-group-item">给站(李小龙)：<span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;13134848615</li>
-                                    <li class="list-group-item">技术(大牛哥)：<span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;13456127694</li>
-                                    <li class="list-group-item">推广(张二哥)：<span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;13457815482</li>
-                                    <li class="list-group-item">客服(王女士)：<span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;13134567782<!-- &nbsp;&nbsp;<span class="glyphicon glyphicon-phone-alt"></span>&nbsp;&nbsp;028-888888 --></li>
+                                <c:forEach items="${UserInfo.list }" var="user">
+                                	<li class="list-group-item">${user.nick }(${user.name })：<span class="glyphicon glyphicon-phone"></span>&nbsp;&nbsp;${user.phone }</li>
+                                </c:forEach>
                                 </ul>
                             </div>
                         </div>
