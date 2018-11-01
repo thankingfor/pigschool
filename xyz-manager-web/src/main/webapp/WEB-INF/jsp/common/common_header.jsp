@@ -37,7 +37,7 @@
                         <li><a onclick="haiweishixian()"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;个人设置</a></li>
                         <li><a onclick="haiweishixian()"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;&nbsp;账户中心</a></li>
                         <li><a onclick="haiweishixian()"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;我的收藏</a></li>
-                        <!-- <li><a href="test"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;测试页面</a></li> -->
+                        <li><a href="modPassword"><span class="glyphicon glyphicon-screenshot"></span>&nbsp;&nbsp;修改密码</a></li>
                     </ul>
                 </li>
                 <li><a href="#bbs" data-toggle="modal" data-target="#loginoutModal"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a></li>

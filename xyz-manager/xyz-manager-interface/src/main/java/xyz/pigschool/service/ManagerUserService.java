@@ -1,6 +1,7 @@
 package xyz.pigschool.service;
 
 import xyz.pigschool.common.utils.XYZResult;
+import xyz.pigschool.manager.pojo.XyzManagerUser;
 
 public interface ManagerUserService {
 	/**
@@ -19,4 +20,9 @@ public interface ManagerUserService {
 	 * @return
 	 */
 	XYZResult getList(int page,int rows,String param);
+	
+	/**
+	 * 修改密码
+	 */
+	XYZResult molPwd(XyzManagerUser user);
 }

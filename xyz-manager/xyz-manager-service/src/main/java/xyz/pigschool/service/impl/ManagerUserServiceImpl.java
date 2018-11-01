@@ -1,11 +1,13 @@
 package xyz.pigschool.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -43,8 +45,8 @@ public class ManagerUserServiceImpl implements ManagerUserService{
 		}
 		//取用户信息
 		XyzManagerUser user = list.get(0);
-		if(user.getPassword().equals(password)) {
-			logger.debug("user:"+user.getName()+"::"+user.getId()+"::"+user.getNick());
+		String md5Pass = DigestUtils.md5DigestAsHex(password.getBytes());
+		if(user.getPassword().equals(md5Pass)) {
 			return XYZResult.ok(user);
 		}
 		return XYZResult.build(400, "用户名或密码错误");
@@ -66,6 +68,20 @@ public class ManagerUserServiceImpl implements ManagerUserService{
 		List<XyzManagerUser> list = userMapper.selectByExample(example);
 		PageInfo<XyzManagerUser> pageInfo = new PageInfo<XyzManagerUser>(list);
 		return XYZResult.ok(pageInfo);
+	}
+
+	/**
+	 * 修改密码
+	 */
+	public XYZResult molPwd(XyzManagerUser user) {
+		user.setUpdated(new Date());
+		//加密
+		String md5Pass = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
+		user.setPassword(md5Pass);
+		if(userMapper.updateByPrimaryKeySelective(user) > 0) {
+			return XYZResult.ok();
+		}
+		return XYZResult.build(201, "修改失败");
 	}
 
 }

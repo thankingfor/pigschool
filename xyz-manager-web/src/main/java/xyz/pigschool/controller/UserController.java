@@ -97,4 +97,26 @@ public class UserController {
 	public String user_search() {
 		return "index/user_search";
 	}
+	/**
+	 * 用户密码修改
+	 * @return
+	 */
+	@RequestMapping("/modPassword")
+	public String modPassword() {
+		return "user/modPassword";
+	}
+	
+	/**
+	 * 修改密码
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping("/user/molPwd")
+	@ResponseBody
+	public XYZResult modPwd(String password,HttpServletRequest request) {
+		XyzManagerUser user = (XyzManagerUser) request.getSession().getAttribute("user");
+		user.setPassword(password);
+		XYZResult result = managerUserService.molPwd(user);
+		return result;
+	}
 }
