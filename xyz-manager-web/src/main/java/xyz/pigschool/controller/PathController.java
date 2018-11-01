@@ -81,10 +81,6 @@ public class PathController {
 	public String item_cat() {
 		return "item/item_cat";
 	}
-	@RequestMapping("/tag")
-	public String tag() {
-		return "index/tag";
-	}
 	/*@RequestMapping("/content")
 	public String content() {
 		return "index/content";

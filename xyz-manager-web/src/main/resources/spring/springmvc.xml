@@ -61,4 +61,5 @@
 	<dubbo:reference interface="xyz.pigschool.service.ManagerUserService" id="managerUserService" />
 	<dubbo:reference interface="xyz.pigschool.service.ManagerContentService" id="managerContentService" />
 	<dubbo:reference interface="xyz.pigschool.service.ManagerMessageService" id="managerMessageService" />
+	<dubbo:reference interface="xyz.pigschool.service.ManagerTagService" id="managerTagService" />
 </beans>
