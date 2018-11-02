@@ -14,12 +14,12 @@ xyz-parent 父工程
 xyz-common-dao 公共dao
 xyz-common-pojo 公共pojo
 xyz-common-utils 公共工具类
-xyz-content 暂定添加所有页面的内容的服务 8082 20881
-xyz-manager 暂定后台页面的基本操作的服务 8080 20880
-xyz-smk-search 二手市场的搜索服务 8086 20883
+xyz-content 暂定添加所有页面的内容的服务 8092 20881 tomcat 8082
+xyz-manager 暂定后台页面的基本操作的服务 8080 20880 tomcat 8081
+xyz-smk-search 二手市场的搜索服务 8086 20883 tomcat 8084
 xyz-sso 单点登录系统 8084 20882
-xyz-secondMarket 二手市场的服务 8088 20884
-xyz-manager-web 后台页面的网站 8081
+xyz-secondMarket 二手市场的服务 8088 20884 tomcat 8083
+xyz-manager-web 后台页面的网站 8081 tomcat 8085
 xyz-secondMarket-web 二手市场主页 8083
 xyz-sso-web 单点登录系统的web项目 8085
 xyz-smk-search-web 二手市场搜索页 8087
