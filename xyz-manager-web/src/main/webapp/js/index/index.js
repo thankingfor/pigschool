@@ -21,7 +21,7 @@ function addMessage(){
         success:function(result){  
         	window.location.href = "index";
         },error:function(){
-        	alert("置顶失败");
+        	alert("留言失败");
         	window.location.href = "index";
         }
     })

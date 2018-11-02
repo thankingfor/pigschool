@@ -22,7 +22,7 @@ public class ContentCatServiceImpl implements ContentCatService{
 	private XyzContentCatMapper contentCatMapper;
 	
 	/**
-	 * 根据夫id查询子节点
+	 * 根据夫id查询子节点 状态 1(正常),2(删除)
 	 * @param parentId 父id
 	 * @return XYZResult类
 	 */
@@ -30,6 +30,7 @@ public class ContentCatServiceImpl implements ContentCatService{
 		XyzContentCatExample example = new XyzContentCatExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andParentIdEqualTo(parentId);
+		criteria.andStateEqualTo(1);
 		List<XyzContentCat> list = contentCatMapper.selectByExample(example);
 		List<TreeNode> resultList = new ArrayList<>();
 		for (XyzContentCat contentCat : list) {
@@ -77,14 +78,18 @@ public class ContentCatServiceImpl implements ContentCatService{
 	}
 
 	/**
-	 * 删除节点 修改父类的字段
+	 * 删除节点 修改父类的字段 状态。可选值:1(正常),2(删除)
 	 * @param parentId
 	 * @param id
 	 * @return
 	 */
 	public XYZResult del(long parentId, long id) {
 		//删除节点
-		contentCatMapper.deleteByPrimaryKey(id);
+		XyzContentCat contentCat = new XyzContentCat();
+		contentCat.setId(id);
+		contentCat.setState(2);
+		contentCatMapper.updateByPrimaryKeySelective(contentCat);
+		//contentCatMapper.deleteByPrimaryKey(id);不能直接删除
 		//如果父节点就这一个子节点，就变为子节点
 		List<TreeNode> resultList = (List<TreeNode>) getItemCatlist(parentId).getData();
 		if(resultList.size() <= 0) {

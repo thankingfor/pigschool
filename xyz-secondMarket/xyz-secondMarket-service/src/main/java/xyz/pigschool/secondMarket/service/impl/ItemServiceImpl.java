@@ -88,14 +88,17 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	/**
-	 * 商品删除
+	 * 商品删除(改变数据的的状态 商品状态，1-正常，2-下架，3-删除)
 	 * 同步索引库 mq操作
 	 * @author lyf
 	 */
 	@Override
 	public XYZResult del(Long[] id) {
 		for (Long longId : id) {
-			itemMapper.deleteByPrimaryKey(longId);
+			XyzItem item = new XyzItem();
+			item.setId(longId);
+			item.setState(3);
+			itemMapper.updateByPrimaryKeySelective(item);
 			//发送商品添加消息
 			jmsTemplate.send(itemDelDestination, new MessageCreator() {
 				

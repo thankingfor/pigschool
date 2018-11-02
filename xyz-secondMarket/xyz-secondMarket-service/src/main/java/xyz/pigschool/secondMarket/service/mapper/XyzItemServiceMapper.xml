@@ -3,7 +3,8 @@
 <mapper namespace="xyz.pigschool.secondMarket.service.mapper.XyzItemServiceMapper" >
 
   <select id="selectByParam" resultType="xyz.pigschool.pojo.XyzItem" parameterType="string" >
-    select * from xyz_item where title like #{param} or sell_point like #{param} or location like #{param}
+    select * from xyz_item 
+    where state = 1 and title like #{param} or sell_point like #{param} or location like #{param}
   </select>
   
   <!-- XyzItemCat selectById(long cid); -->

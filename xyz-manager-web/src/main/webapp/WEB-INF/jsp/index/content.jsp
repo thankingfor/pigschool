@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -77,11 +78,12 @@
     <ul class="pagination">
     	<%-- <li>每页的数量:${pageInfo.pageSize }</li> --%>
     	<%-- <li>总记录数:${pageInfo.total }</li> --%>
+    	<%-- <li><a onclick="turnTo(${pageInfo.pageNum })" class="disabled">当前：${pageInfo.pageNum }</a></li> --%>
+      	<%-- <li><a onclick="turnTo(${pageInfo.pages })" class="disabled">总共：${pageInfo.pages }</a></li> --%>
         <li><a onclick="turnToUp(${pageInfo.pageNum })" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-        <li><a onclick="turnTo(1)">1</a></li>
-        <li><a onclick="turnTo(${pageInfo.pageNum })" class="disabled">当前：${pageInfo.pageNum }</a></li>
-        <li><a onclick="turnTo(${pageInfo.pages })" class="disabled">总共：${pageInfo.pages }</a></li>
-        <li><a onclick="turnTo(${pageInfo.pages })" class="disabled">${pageInfo.pages }</a></li>
+      	<c:forEach items="${pageInfo.navigatepageNums}" var="page" varStatus="varStatus">
+			<li><a onclick="turnTo(${page })" class="disabled">${page }</a></li>
+		</c:forEach>
         <li><a onclick="turnToDown(${pageInfo.pageNum },${pageInfo.pages })"><span aria-hidden="true">&raquo;</span></a></li>
         
     </ul>

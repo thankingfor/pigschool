@@ -57,7 +57,10 @@ public class ManagerContentServiceImpl implements ManagerContentService{
 		criteria.andTitleLike("%"+param+"%");
 		List<XyzManagerContent> list = contentMapper.selectByExample(example);*/
 		List<ManagerContentVO> list = managerContentMapper.selectByParam("%"+param+"%");
-		PageInfo<ManagerContentVO> pageInfo = new PageInfo<ManagerContentVO> (list);
+		PageInfo<ManagerContentVO> pageInfo = new PageInfo<ManagerContentVO> (list,5);
+		for (int num : pageInfo.getNavigatepageNums()) {
+			log.debug("-------num="+num);
+		}
 		return XYZResult.ok(pageInfo);
 	}
 

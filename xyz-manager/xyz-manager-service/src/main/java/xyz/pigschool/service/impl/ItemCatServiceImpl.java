@@ -26,7 +26,7 @@ public class ItemCatServiceImpl implements ItemCatService{
 	private XyzItemCatMapper itemCatMapper;
 	
 	/**
-	 * 通过id查询下面所有的TreeNode
+	 * 通过id查询下面所有的TreeNode 状态。可选值:1(正常),0(删除)
 	 */
 	public XYZResult getItemCatlist(long parentId) {
 		logger.info("我来到了 getItemCatlist");
@@ -35,6 +35,7 @@ public class ItemCatServiceImpl implements ItemCatService{
 		Criteria criteria = example.createCriteria();
 		//设置查询条件
 		criteria.andParentIdEqualTo(parentId);
+		criteria.andStateEqualTo(1);
 		//执行查询
 		List<XyzItemCat> list = itemCatMapper.selectByExample(example);
 		//创建返回结果List
@@ -84,12 +85,16 @@ public class ItemCatServiceImpl implements ItemCatService{
 	}
 
 	/**
-	 * 删除
-	 */
+	 * 删除 可选值:1(正常),0(删除)
+	 */ 
 	@SuppressWarnings("unchecked")
 	public XYZResult del(long parentId,long id) {
 		logger.info("---parentId"+parentId);
-		itemCatMapper.deleteByPrimaryKey(id);
+		XyzItemCat itemCat1 = new XyzItemCat();
+		itemCat1.setId(id);
+		itemCat1.setState(0);
+		itemCatMapper.updateByPrimaryKeySelective(itemCat1);
+		//itemCatMapper.deleteByPrimaryKey(id); 不能直接删除
 		//如果删除的id是唯一的节点，就让父节点变为子节点
 		List<TreeNode> resultList = (List<TreeNode>) getItemCatlist(parentId).getData();
 		logger.info("---resultList.size()"+resultList.size());

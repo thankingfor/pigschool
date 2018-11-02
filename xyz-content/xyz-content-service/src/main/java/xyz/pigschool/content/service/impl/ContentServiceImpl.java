@@ -52,7 +52,7 @@ public class ContentServiceImpl implements ContentService{
 	}
 
 	/**
-	 * 	删除内容
+	 * 	删除内容 没有状态直接删除
 	 * 	做缓存
 	 * @param id
 	 * @return
@@ -60,6 +60,8 @@ public class ContentServiceImpl implements ContentService{
 	 */
 	public XYZResult del(Long[] id,long cid) {
 		for (Long longId : id) {
+			XyzContent content = new XyzContent();
+			
 			contentMapper.deleteByPrimaryKey(longId);
 		}
 		//缓存同步，删除缓存中的数据 
