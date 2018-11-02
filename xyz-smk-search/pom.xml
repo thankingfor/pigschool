@@ -36,6 +36,9 @@
 				<configuration>
 					<path>/</path>
 					<port>8086</port>
+					<url>http://47.95.196.58:8084/manager/text</url>
+					<username>tomcat4</username>
+					<password>tomcat4</password>
 				</configuration>
 			</plugin>
 		</plugins>

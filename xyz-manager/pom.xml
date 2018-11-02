@@ -40,6 +40,9 @@
 				<configuration>
 					<path>/</path>
 					<port>8080</port>
+					<url>http://47.95.196.58:8081/manager/text</url>
+					<username>tomcat1</username>
+					<password>tomcat1</password>
 				</configuration>
 			</plugin>
 		</plugins>
