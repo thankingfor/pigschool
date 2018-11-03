@@ -120,9 +120,9 @@
 				<configuration>
 					<path>/</path>
 					<port>8081</port>
-					<url>http://47.95.196.58:8085/manager/text</url>
-					<username>tomcat5</username>
-					<password>tomcat5</password>
+					<url>http://101.132.124.2:8081/manager/text</url>
+					<username>tomcat1</username>
+					<password>tomcat1</password>
 				</configuration>
 			</plugin>
 		</plugins>
