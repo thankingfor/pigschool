@@ -23,8 +23,9 @@
                 <li><a href="user_list"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;用户管理</a></li>
                 <li><a href="content"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;内容管理</a></li>
                 <li><a href="tag"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;标签管理</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-user">当前用户：${sessionScope.user.nick }</span></a></li>
             </ul>
-            <span class="glyphicon glyphicon-user">当前用户：${sessionScope.user.nick }</span>
+            <%-- <span class="glyphicon glyphicon-user">当前用户：${sessionScope.user.nick }</span> --%>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
