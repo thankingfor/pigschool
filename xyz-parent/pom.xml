@@ -86,7 +86,7 @@
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>${junit.version}</version>
-				<scope>test</scope>
+				<!-- <scope>test</scope> -->
 			</dependency>
 			<!-- 日志处理 -->
 			<dependency>
@@ -177,6 +177,11 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context-support</artifactId>
 				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+			    <groupId>org.springframework</groupId>
+			    <artifactId>spring-test</artifactId>
+			    <version>${spring.version}</version>
 			</dependency>
 			<!-- JSP相关 -->
 			<dependency>
