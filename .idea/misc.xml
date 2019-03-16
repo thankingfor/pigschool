@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/xyz-content/xyz-content-service" />
+    <file type="web" url="file://$PROJECT_DIR$/xyz-manager-web" />
+    <file type="web" url="file://$PROJECT_DIR$/xyz-manager/xyz-manager-service" />
+    <file type="web" url="file://$PROJECT_DIR$/xyz-secondMarket-web" />
+    <file type="web" url="file://$PROJECT_DIR$/xyz-secondMarket/xyz-secondMarket-service" />
+    <file type="web" url="file://$PROJECT_DIR$/xyz-smk-item-web" />
+    <file type="web" url="file://$PROJECT_DIR$/xyz-smk-search-web" />
+    <file type="web" url="file://$PROJECT_DIR$/xyz-smk-search/xyz-smk-search-service" />
+    <file type="web" url="file://$PROJECT_DIR$/xyz-sso-web" />
+    <file type="web" url="file://$PROJECT_DIR$/xyz-sso/xyz-sso-service" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/xyz-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/xyz-content/pom.xml" />
+        <option value="$PROJECT_DIR$/xyz-common-utils/pom.xml" />
+        <option value="$PROJECT_DIR$/xyz-common-pojo/pom.xml" />
+        <option value="$PROJECT_DIR$/xyz-common-dao/pom.xml" />
+        <option value="$PROJECT_DIR$/xyz-manager/pom.xml" />
+        <option value="$PROJECT_DIR$/xyz-manager-web/pom.xml" />
+        <option value="$PROJECT_DIR$/xyz-secondMarket/pom.xml" />
+        <option value="$PROJECT_DIR$/xyz-smk-search/pom.xml" />
+        <option value="$PROJECT_DIR$/xyz-sso/pom.xml" />
+        <option value="$PROJECT_DIR$/xyz-sso-web/pom.xml" />
+        <option value="$PROJECT_DIR$/xyz-smk-search-web/pom.xml" />
+        <option value="$PROJECT_DIR$/xyz-secondMarket-web/pom.xml" />
+        <option value="$PROJECT_DIR$/xyz-smk-item-web/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_9" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+</project>

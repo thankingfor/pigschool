@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="xyz-smk-item-web:war">
+    <output-path>$PROJECT_DIR$/xyz-smk-item-web/target</output-path>
+    <root id="archive" name="xyz-smk-item-web.war">
+      <element id="artifact" artifact-name="xyz-smk-item-web:war exploded" />
+    </root>
+  </artifact>
+</component>

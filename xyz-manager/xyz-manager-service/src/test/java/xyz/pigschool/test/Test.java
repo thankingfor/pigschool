@@ -2,6 +2,7 @@ package xyz.pigschool.test;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -11,6 +12,7 @@ import xyz.pigschool.mapper.XyzItemMapper;
 import xyz.pigschool.pojo.XyzContent;
 import xyz.pigschool.pojo.XyzItem;
 
+@Ignore
 public class Test{
 
 	/*@Autowired

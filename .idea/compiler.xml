@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="xyz-common-dao" />
+        <module name="xyz-common-pojo" />
+        <module name="xyz-common-utils" />
+        <module name="xyz-content-interface" />
+        <module name="xyz-content-service" />
+        <module name="xyz-manager-interface" />
+        <module name="xyz-manager-service" />
+        <module name="xyz-manager-web" />
+        <module name="xyz-secondMarket-interface" />
+        <module name="xyz-secondMarket-service" />
+        <module name="xyz-secondMarket-web" />
+        <module name="xyz-smk-item-web" />
+        <module name="xyz-smk-search-interface" />
+        <module name="xyz-smk-search-service" />
+        <module name="xyz-smk-search-web" />
+        <module name="xyz-sso-interface" />
+        <module name="xyz-sso-service" />
+        <module name="xyz-sso-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="xyz-common-dao" target="1.8" />
+      <module name="xyz-common-pojo" target="1.8" />
+      <module name="xyz-common-utils" target="1.8" />
+      <module name="xyz-content" target="1.8" />
+      <module name="xyz-content-interface" target="1.8" />
+      <module name="xyz-content-service" target="1.8" />
+      <module name="xyz-manager" target="1.8" />
+      <module name="xyz-manager-interface" target="1.8" />
+      <module name="xyz-manager-service" target="1.8" />
+      <module name="xyz-manager-web" target="1.8" />
+      <module name="xyz-parent" target="1.8" />
+      <module name="xyz-secondMarket" target="1.8" />
+      <module name="xyz-secondMarket-interface" target="1.8" />
+      <module name="xyz-secondMarket-service" target="1.8" />
+      <module name="xyz-secondMarket-web" target="1.8" />
+      <module name="xyz-smk-item-web" target="1.8" />
+      <module name="xyz-smk-search" target="1.8" />
+      <module name="xyz-smk-search-interface" target="1.8" />
+      <module name="xyz-smk-search-service" target="1.8" />
+      <module name="xyz-smk-search-web" target="1.8" />
+      <module name="xyz-sso" target="1.8" />
+      <module name="xyz-sso-interface" target="1.8" />
+      <module name="xyz-sso-service" target="1.8" />
+      <module name="xyz-sso-web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="xyz-content-service:war">
+    <output-path>$PROJECT_DIR$/xyz-content/xyz-content-service/target</output-path>
+    <root id="archive" name="xyz-content-service.war">
+      <element id="artifact" artifact-name="xyz-content-service:war exploded" />
+    </root>
+  </artifact>
+</component>
