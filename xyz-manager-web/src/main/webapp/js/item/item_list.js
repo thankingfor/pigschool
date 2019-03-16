@@ -92,7 +92,7 @@ function tableshow(){
             align: 'center',
             valign: 'middle'
           },{
-            title: '用户名',
+            title: '商品名',
             field: 'title',
             align: 'center',
             valign: 'middle'
@@ -114,12 +114,12 @@ function tableshow(){
               field: 'cid',
               align: 'center',
               valign: 'middle'
-          },{
+          },/*{
               title: '地址',
               field: 'location',
               align: 'center',
               valign: 'middle'
-          },{
+          },*/{
               title: '联系方式',
               field: 'contactInfo',
               align: 'center',

@@ -19,7 +19,7 @@
         <div class="col-md-2">
             <div class="list-group">
                 <a href="item_list" class="list-group-item active">商品信息</a>
-                <a href="item_add" role="button"  class="list-group-item">添加商品</a>
+                <%--<a href="item_add" role="button"  class="list-group-item">添加商品</a>--%>
                 <input id="sel" type="text" class="form-control" value="" placeholder="搜索内容">
                 <a class="list-group-item" onclick="selectList()">商品搜索</a>
                 <a class="list-group-item" onclick="selectDel()">商品删除</a>

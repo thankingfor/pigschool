@@ -2,14 +2,14 @@ $(function () {
 	initWangEditor();
 	initFileInput("filePicture","/upload");
 	initFileInput("filePicture2","/upload");
-	$('#addForm').bootstrapValidator();
+	/*$('#addForm').bootstrapValidator();*/
 })
 
 /**
  * 表单验证
  */
 
-function addFormValidator(){
+/*function addFormValidator(){
 	$('#addForm').bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {
@@ -40,7 +40,7 @@ function addFormValidator(){
             },
         }
     });
-}
+}*/
 
 /**
  * 提交表单

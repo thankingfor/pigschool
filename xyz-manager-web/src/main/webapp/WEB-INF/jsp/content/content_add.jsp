@@ -32,7 +32,7 @@
                         <input type="hidden" id="addFormCategoryId" name="categoryId" class="form-control" >
                     </div>
                     <div class="form-group">
-                        <label for="addname">大标题</label>
+                        <label for="addFormTitle">大标题</label>
                         <input type="text" id="addFormTitle" name="title" class="form-control" placeholder="请输入大标题" required data-bv-notempty-message="不能为空">
                     </div>
                     <div class="form-group">
